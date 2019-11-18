@@ -2,6 +2,8 @@
 # That allows user to input information and get results
 # that allow for informed decisions on where to live
 
+ As of now all of the API's of the application are working.  The mongo database is receiving DOM input from user logins and saving them to the database.  Users can create new accounts and cancel them when they would like-while logged in.  It you want to try it out follow the step bellow.  There are a-lot of new and exciting features coming soon!! 🚀
+
 ![alt text](homePageScreenShot.png)
 
 ## Tech Used:
