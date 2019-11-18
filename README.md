@@ -1,6 +1,6 @@
 # ✅ A Full Stack CRUD application
 # That allows user to input information and get results
-# that allow for informed decisions of where they will live
+# that allow for informed decisions on where to live
 
 ![alt text](homePageScreenShot.png)
 
