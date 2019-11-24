@@ -9,11 +9,13 @@ module.exports = function(app, passport, db) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db.collection('messages').find().toArray((err, result) => {
+      let uId = req.user._id
+        db.collection('userInfo').find({createdBy: uId}).toArray((err, result) => {
+          console.log(result)
           if (err) return console.log(err)
           res.render('profile.ejs', {
             user : req.user,
-            messages: result
+            userInfo: result
           })
         })
     });
@@ -26,31 +28,66 @@ module.exports = function(app, passport, db) {
 
 // message board routes ===============================================================
 
-    app.post('/messages', (req, res) => {
-      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+    app.post('/userInfoIntake', (req, res) => {
+      console.log(req.body)
+      db.collection('userInfo').save(
+        {
+          income: req.body.income,
+          collegeDegree: req.body.collegeDegree,
+          race: req.body.race,
+          name: req.body.name,
+          createdBy: req.user._id
+        }, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
       })
     })
 
-    app.put('/messages', (req, res) => {
-      db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-        $set: {
-          thumbUp:req.body.thumbUp + 1
-        }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-    })
+
+    app.put("/updateUser", (req, res) => {
+   console.log("check update", req.body);
+   db.collection("userInfo").findOneAndUpdate(
+     { createdBy: req.user._id },
+     {
+       $set: {
+         income: req.body.income,
+         collegeDegree: req.body.collegeDegree,
+         race: req.body.race,
+         name: req.body.name,
+         createdBy: req.user._id
+       }
+     },
+     { new: true,  upsert: true },
+     (err, result) => {
+       if (err) {
+         console.log("err", err);
+         return res.send(err);
+       }
+       console.log("res", result);
+       res.send(result);
+     }
+   );
+ });
+    // NOT NEEDED RIGHT NOW
+    // app.put('/messages', (req, res) => {
+    //   db.collection('userInfo')
+    //   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+    //     $set: {
+    //       thumbUp:req.body.thumbUp + 1
+    //     }
+    //   }, {
+    //     sort: {_id: -1},
+    //     upsert: true
+    //   }, (err, result) => {
+    //     if (err) return res.send(err)
+    //     res.send(result)
+    //   })
+    // })
 
     app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      console.log(res)
+      db.collection('userInfo').findOneAndDelete({income: req.body.income, collegeDegree: req.body.collegeDegree, race: req.body.race, name: req.body.name}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
@@ -108,6 +145,7 @@ module.exports = function(app, passport, db) {
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
+  // console.log(req)
     if (req.isAuthenticated())
         return next();
 

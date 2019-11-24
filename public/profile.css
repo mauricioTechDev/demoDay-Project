@@ -1,0 +1,11 @@
+.welcomeMessage{
+  font-size: 18px;
+  margin: 8% 0% 4% 0%;
+  font-family: unset;
+}
+.col-md-4{
+  width: 90%
+}
+.feature-thumb span{
+  width: 122px;
+}

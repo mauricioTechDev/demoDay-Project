@@ -24,6 +24,7 @@ https://templatemo.com/tm-516-known
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="templatemo-style.css">
+     <link rel="stylesheet" href="profile.css">
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -65,7 +66,8 @@ https://templatemo.com/tm-516-known
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="/unlink/local" class="btn btn-default">Unlink</a></li>
+                        <li class="welcomeMessage" >Welcome, <%=user.local.email%></li>
+                        <li><a href="/unlink/local" class="btn btn-default">Unlink</a></li>
                     </ul>
                </div>
 
@@ -82,8 +84,8 @@ https://templatemo.com/tm-516-known
                               <div class="caption">
                                    <div class="container">
                                         <div class="col-md-6 col-sm-12">
-                                             <h1>Distance Learning Education Center</h1>
-                                             <h3>Our online courses are designed to fit in your industry supporting all-round with latest technologies.</h3>
+                                             <h1>myDomus</h1>
+                                             <h3>Make smart choices about where you live.</h3>
                                              <a href="#feature" class="section-btn btn btn-default smoothScroll">Discover more</a>
                                         </div>
                                    </div>
@@ -98,17 +100,72 @@ https://templatemo.com/tm-516-known
      <!-- FEATURE -->
      <section id="feature">
           <div class="container">
-               <div class="row">
+            <h2>Boston is a great City. Let's get some info. So you make the choice of where to live.</h2>
+      <% if (user.local.email) { %>
+        <form action="/userInfoIntake" autocomplete="off" method="POST">
+          <span>NAME</span>
+          <input required="This field is required" type="text" placeholder="name" name="name">
+          <span>Average annul income: </span>
+          <input type="number" placeholder="annual income" name="income">
+          <span>You have a college degree?</span>
+          <select class="" name="collegeDegree">
+            <option value="yes">YES</option>
+            <option value="no">NO</option>
+          </select>
+          <select class="" name="race">
+            <option value="Latino">Latino</option>
+            <option value="White">White</option>
+            <option value="Black or Africa">Black or Africa</option>
+            <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Vietnamese">Vietnamese</option>
+            <option value="Chamorro">Chamorro</option>
+          </select>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <% } %>
 
+
+      <!-- <span>Thumbs up for PAID - Check off to delete</span>
+          <ul class="userInfo">
+          <% for(var i=0; i<userInfo.length; i++) {%>
+            <li class="userInfo">
+              <span contenteditable="true"><%= userInfo[i].income %></span>
+              <span contenteditable="true"><%= userInfo[i].collegeDegree %></span>
+              <span contenteditable="true"><%= userInfo[i].race %></span>
+              <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+              <span><i class="fas fa-ban"></i></span>
+            </li>
+          <% } %>
+          </ul> -->
+
+               <div class="row">
                     <div class="col-md-4 col-sm-4">
-                         <div class="feature-thumb">
-                              <span>01</span>
-                              <h3>Trending Courses</h3>
+                      <div class="feature-thumb">
+
+                      <ul class="userInfo">
+                      <% for(var i=0; i<userInfo.length; i++) {%>
+                           <li class="userInfo">
+                              <span>PROFILE</span>
+                              <h3>User Name</h3>
+                              <p contenteditable="true"><%= userInfo[i].name %></p>
+                              <h3>User Average Income</h3>
+                              <p contenteditable="true"><%= userInfo[i].income %></p>
+                              <h3>College Degree</h3>
+                              <p contenteditable="true"><%= userInfo[i].collegeDegree %></p>
+                              <h3>Race</h3>
+                              <p contenteditable="true"><%= userInfo[i].race %></p>
+                              <p class="edit">EDIT</p>
+                              <p class="trash">DELETE</p>
+                          </li>
+                          <%}%>
+                        </ul>
                               <p>Known is free education HTML Bootstrap Template. You can modify in any way and use this for your website.</p>
                          </div>
                     </div>
 
-                    <div class="col-md-4 col-sm-4">
+                    <!-- <div class="col-md-4 col-sm-4">
                          <div class="feature-thumb">
                               <span>02</span>
                               <h3>Books & Library</h3>
@@ -122,7 +179,7 @@ https://templatemo.com/tm-516-known
                               <h3>Certified Teachers</h3>
                               <p>Please spread a word about us. Template redistribution is NOT allowed on any download website.</p>
                          </div>
-                    </div>
+                    </div> -->
 
                </div>
           </div>
@@ -649,6 +706,9 @@ https://templatemo.com/tm-516-known
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/smoothscroll.js"></script>
      <script src="js/custom.js"></script>
+     <script src="main.js">
+
+     </script>
 
 </body>
 </html>
