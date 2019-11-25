@@ -1,8 +1,9 @@
-# ✅ A Full Stack CRUD application
-# That allows user to input information and get results
-# that allow for informed decisions on where to live
+# ✅ A Full Stack DEMO DAY CRUD application
+## myDomus is an application that allows people to make educated decisions about where to live.
 
- As of now all of the API's of the application are working.  The mongo database is receiving DOM input from user logins and saving them to the database.  Users can create new accounts and cancel them when they would like-while logged in.  It you want to try it out follow the step bellow.  There are a-lot of new and exciting features coming soon!! 🚀
+ This application is currently in development.  As of now users are able to create and delete an account through the DOM in the application.  They are also able to enter in their personal information into their profile when they are logged in.  If they want to edit any information they simply click on it and hit the edit button.  
+
+ In the back end I am running an Express framework with Node.js.  For my database I am using mongodb.  The mongo database is receiving DOM input from user logins and saving them to the database.  If you want to try it out follow the step bellow.  There are a-lot of new and exciting features coming soon!! Engaging maps and tons of data for your hearts desire! 🚀
 
 ![alt text](homePageScreenShot.png)
 
