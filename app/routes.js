@@ -44,6 +44,31 @@ module.exports = function(app, passport, db) {
       })
     })
 
+// to post the users current position
+    app.post('/userCordinatesApi', (req, res) => {
+      console.log('I got a request');
+      // user lat and lon
+      console.log(req.body);
+      const userLogInLocationData = req.body
+      const timestamp = Date.now();
+      userLogInLocationData.timestamp = timestamp
+      db.collection('userLogInLocations').save(
+        {
+          latitude: req.body.currentUserLat,
+          longitude: req.body.currentUserLon,
+          timestamp: timestamp,
+          createdBy: req.user._id
+        }, (err, result) => {
+          if (err) return console.log(err)
+          console.log("saved to database")
+          res.json({
+           status: 'success',
+           latitude: req.body.currentUserLat,
+           longitude: req.body.currentUserLon
+        })
+      })
+    })
+
 
     app.put("/updateUser", (req, res) => {
    console.log("check update", req.body);
