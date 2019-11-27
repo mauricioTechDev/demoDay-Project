@@ -103,7 +103,7 @@ const mymap = L.map('mapid').setView([42.404142199999995 , -71.0383346], 15);
 
 
 
-
+// ADD KEY FOR MAP BOX
 // TILE LAYERS
 L.tileLayer('https://api.mapbox.com/styles/v1/mauriciotechdev/ck3fgsovo23vj1cunzfdsjj3a/tiles/256/{z}/{x}/{y}@2x?access_token=', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
