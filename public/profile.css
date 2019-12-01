@@ -11,7 +11,13 @@
 }
 
 #mapid {
-  height: 600px;
+  height: 620px;
   width: 90%;
   margin-left: 4%;
+}
+.leaflet-popup-content {
+  width: 650px
+}
+li{
+  list-style: none;
 }

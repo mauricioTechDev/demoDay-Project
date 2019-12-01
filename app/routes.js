@@ -29,14 +29,26 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/userInfoIntake', (req, res) => {
-      console.log(req.body)
+      // console.log(req.body)
       db.collection('userInfo').save(
         {
           income: req.body.income,
-          collegeDegree: req.body.collegeDegree,
           race: req.body.race,
           name: req.body.name,
-          createdBy: req.user._id
+          createdBy: req.user._id,
+        }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/profile')
+      })
+    })
+
+    app.post('/favoriteCity', (req, res) => {
+      console.log(req.body)
+      db.collection('interestedLocations').save(
+        {
+          nameOfTheCity: req.body.nameOfTheCity,
+          // zillowIndex: req.body.zillowIndex,
         }, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
@@ -70,6 +82,8 @@ module.exports = function(app, passport, db) {
     })
 
 
+
+
     app.put("/updateUser", (req, res) => {
    console.log("check update", req.body);
    db.collection("userInfo").findOneAndUpdate(
@@ -77,7 +91,6 @@ module.exports = function(app, passport, db) {
      {
        $set: {
          income: req.body.income,
-         collegeDegree: req.body.collegeDegree,
          race: req.body.race,
          name: req.body.name,
          createdBy: req.user._id
@@ -112,7 +125,7 @@ module.exports = function(app, passport, db) {
 
     app.delete('/messages', (req, res) => {
       console.log(res)
-      db.collection('userInfo').findOneAndDelete({income: req.body.income, collegeDegree: req.body.collegeDegree, race: req.body.race, name: req.body.name}, (err, result) => {
+      db.collection('userInfo').findOneAndDelete({income: req.body.income, race: req.body.race, name: req.body.name}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })

@@ -117,19 +117,16 @@ https://templatemo.com/tm-516-known
           <input required="This field is required" type="text" placeholder="name" name="name">
           <span>Average annul income: </span>
           <input type="number" placeholder="annual income" name="income">
-          <span>You have a college degree?</span>
-          <select class="" name="collegeDegree">
-            <option value="yes">YES</option>
-            <option value="no">NO</option>
-          </select>
+          <span>Race & Ethnicity</span>
           <select class="" name="race">
-            <option value="Latino">Latino</option>
+            <option value="Hispanic">Hispanic</option>
             <option value="White">White</option>
-            <option value="Black or Africa">Black or Africa</option>
-            <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
-            <option value="Chinese">Chinese</option>
-            <option value="Vietnamese">Vietnamese</option>
-            <option value="Chamorro">Chamorro</option>
+            <option value="Black">Black</option>
+            <option value="Asian">Asian</option>
+            <option value="Islander">Islander</option>
+            <option value="Other">Other</option>
+            <option value="Two+">Two+</option>
+            <option value="Native">Native</option>
           </select>
           <button type="submit">Submit</button>
         </form>
@@ -162,11 +159,9 @@ https://templatemo.com/tm-516-known
                               <p contenteditable="true"><%= userInfo[i].name %></p>
                               <h3>User Average Income</h3>
                               <p contenteditable="true"><%= userInfo[i].income %></p>
-                              <h3>College Degree</h3>
-                              <p contenteditable="true"><%= userInfo[i].collegeDegree %></p>
-                              <h3>Race</h3>
+                              <h3>Race & Ethnicity</h3>
                               <p contenteditable="true"><%= userInfo[i].race %></p>
-                              <p class="edit">EDIT</p>
+                              <p class="edit">CLICK TO UPDATE</p>
                               <p class="trash">DELETE</p>
                           </li>
                           <%}%>
@@ -175,80 +170,9 @@ https://templatemo.com/tm-516-known
                          </div>
                     </div>
 
-                    <!-- <div class="col-md-4 col-sm-4">
-                         <div class="feature-thumb">
-                              <span>02</span>
-                              <h3>Books & Library</h3>
-                              <p>You are allowed to use Known HTML Template for your commercial or non-commercial websites.</p>
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                         <div class="feature-thumb">
-                              <span>03</span>
-                              <h3>Certified Teachers</h3>
-                              <p>Please spread a word about us. Template redistribution is NOT allowed on any download website.</p>
-                         </div>
-                    </div> -->
-
                </div>
           </div>
      </section>
-
-
-     <!-- ABOUT -->
-     <!-- <section id="about">
-          <div class="container">
-               <div class="row">
-
-                    <div class="col-md-6 col-sm-12">
-                         <div class="about-info">
-                              <h2>Start your journey to a better life with online practical courses</h2>
-
-                              <figure>
-                                   <span><i class="fa fa-users"></i></span>
-                                   <figcaption>
-                                        <h3>Professional Trainers</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                                   </figcaption>
-                              </figure>
-
-                              <figure>
-                                   <span><i class="fa fa-certificate"></i></span>
-                                   <figcaption>
-                                        <h3>International Certifications</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                                   </figcaption>
-                              </figure>
-
-                              <figure>
-                                   <span><i class="fa fa-bar-chart-o"></i></span>
-                                   <figcaption>
-                                        <h3>Free for 3 months</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                                   </figcaption>
-                              </figure>
-                         </div>
-                    </div>
-
-                    <div class="col-md-offset-1 col-md-4 col-sm-12">
-                         <div class="entry-form">
-                              <form action="#" method="post">
-                                   <h2>Signup today</h2>
-                                   <input type="text" name="full name" class="form-control" placeholder="Full name" required="">
-
-                                   <input type="email" name="email" class="form-control" placeholder="email" required="">
-
-                                   <input type="password" name="password" class="form-control" placeholder="password" required="">
-
-                                   <button class="submit-btn form-control" id="form-submit">Get started</button>
-                              </form>
-                         </div>
-                    </div>
-
-               </div>
-          </div>
-     </section> -->
 
 
      <!-- TEAM -->
@@ -337,7 +261,46 @@ https://templatemo.com/tm-516-known
 
      <!-- Courses -->
      <section id="courses">
-          <div class="container">
+       <% if (user.local.email) { %>
+       <form action="/favoriteCity"  method="POST">
+         <select class="" name="nameOfTheCity">
+           <option value="South Dorchester">South Dorchester</option>
+           <option value="Roxbury">Roxbury</option>
+           <option value="Jamaica Plain">Jamaica Plain</option>
+           <option value="East Boston">East Boston</option>
+           <option value="Brighton">Brighton</option>
+           <option value="Mattapan">Mattapan</option>
+           <option value="South Boston">South Boston</option>
+           <option value="Hyde Park">Hyde Park</option>
+           <option value="West Roxbury">West Roxbury</option>
+           <option value="South End">South End</option>
+           <option value="Roslindale">Roslindale</option>
+           <option value="North Dorchester">North Dorchester</option>
+           <option value="Allston">Allston</option>
+           <option value="Back Bay">Back Bay</option>
+           <option value="Fenway">Fenway</option>
+           <option value="Charlestown">Charlestown</option>
+           <option value="Kenmore">Kenmore</option>
+           <option value="Mission Hill">Mission Hill</option>
+           <option value="North End">North End</option>
+           <option value="Beacon Hill">Beacon Hill</option>
+           <option value="Chinatown">Chinatown</option>
+           <option value="Downtown">Downtown</option>
+         </select>
+         <button type="submit" name="button">Estimate</button>
+       </form>
+       <% } %>
+
+      
+
+
+
+
+
+
+
+
+          <!-- <div class="container">
                <div class="row">
 
                     <div class="col-md-12 col-sm-12">
@@ -504,7 +467,7 @@ https://templatemo.com/tm-516-known
                          </div>
 
                </div>
-          </div>
+          </div> -->
      </section>
 
 
