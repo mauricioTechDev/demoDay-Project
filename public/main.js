@@ -7,9 +7,9 @@ Array.from(edit).forEach(function(element) {
     console.log(edit);
     const name = this.parentNode.childNodes[5].innerText
     const income = this.parentNode.childNodes[9].innerText
-    const race = this.parentNode.childNodes[13].innerText
+    const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
 
-    console.log(name, income, race)
+    console.log(name, income, interestedInTheCityOf)
     fetch("updateUser", {
       method: "put",
       headers: {
@@ -18,7 +18,7 @@ Array.from(edit).forEach(function(element) {
       body: JSON.stringify({
         'name': name,
         'income': income,
-        'race': race
+        'interestedInTheCityOf': interestedInTheCityOf
       })
     }).then(function(response) {
       console.log(response);
@@ -35,12 +35,11 @@ Array.from(trash).forEach(function(element) {
         const income = this.parentNode.childNodes[9].innerText
         console.log(income)
         // const collegeDegree = this.parentNode.childNodes[13].innerText
-        const race = this.parentNode.childNodes[13].innerText
-        console.log(race)
+        const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
+        console.log(interestedInTheCityOf)
         // console.log(name)
         // console.log(income)
         // console.log(collegeDegree)
-        // console.log(race)
         fetch('messages', {
           method: 'delete',
           headers: {
@@ -49,7 +48,7 @@ Array.from(trash).forEach(function(element) {
           body: JSON.stringify({
             'name': name,
             'income': income,
-            'race': race
+            'interestedInTheCityOf': interestedInTheCityOf
           })
         }).then(function (response) {
           window.location.reload()
@@ -67,18 +66,37 @@ Array.from(trash).forEach(function(element) {
     parser = new DOMParser();
     // Once you have created a parser object, you can parse XML from a string using the parseFromString() method:
     xmlDoc = parser.parseFromString(res,"application/xml")
-
     console.log("zillow")
     console.log(xmlDoc)
-    for(let i = 0; i<=30; i++){
-      if (xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue == "Haymarket"){
+    let choiceOfCityUserIsInnterestedIn = document.querySelector(".cityOfChoice").innerText
+    var latitude;
+    var longitude;
+    for(let i = 0; i<=31; i++){
+      if (xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue == choiceOfCityUserIsInnterestedIn){
         console.log(xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue)
+        console.log(xmlDoc.getElementsByTagName("zindex")[i].childNodes[0].nodeValue)
+        document.querySelector(".averageHomePrice").innerHTML = xmlDoc.getElementsByTagName("zindex")[i].childNodes[0].nodeValue
+        var latitude = xmlDoc.getElementsByTagName("latitude")[i+1].childNodes[0].nodeValue
+        var longitude = xmlDoc.getElementsByTagName("longitude")[i+1].childNodes[0].nodeValue
+        console.log(longitude)
+        console.log(latitude)
+        // reversegeocoding
+        fetch(`https://cors-anywhere.herokuapp.com/https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${tileAPIkey}`)
+        .then(res => res.json())
+        .then(res => {
+          console.log("getting exact address")
+          let addressOfExampleHome = res.features[0].place_name
+          console.log(addressOfExampleHome.split(', '))
+          // document.querySelector('#rawAddress').textContent = rawAddress
+        // fetch(` http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=2114+Bigelow+Ave&citystatezip=Seattle%2C+WA`)
+
+        })
       }
     }
-
-    // yearBuilt = xml.querySelector('yearBuilt').innerHTML
-
-    // L.geoJSON(maBoundaryData).addTo(mymap);
+    // .catch(err => {
+    //     console.log(`error ${err}`)
+    //     alert("sorry, there are no results for your search")
+    // });
   })
 })()
 
@@ -112,8 +130,7 @@ if ("geolocation" in navigator) {
     console.log(res)
     // MARKS USERS CURRENT LOCATION
     const marker = L.marker([res.latitude, res.longitude]).addTo(mymap);
-    const markerPopUp = marker.bindPopup(`<iframe id="cr-embed-14000US25025030300-economics-income-household_distribution" class="census-reporter-embed" src="https://s3.amazonaws.com/embed.censusreporter.org/1.0/iframe.html?geoID=14000US25025030300&chartDataID=economics-income-household_distribution&dataYear=2017&releaseID=ACS_2017_5-year&chartType=histogram&chartHeight=200&chartQualifier=&chartTitle=Household+income&initialSort=&statType=scaled-percentage" frameborder="0" width="100%" height="300" style="margin: 1em; max-width: 720px;"></iframe>
-<script src="https://s3.amazonaws.com/embed.censusreporter.org/1.0/js/embed.chart.make.js"></script>`,{"width": "600"})
+    const markerPopUp = marker.bindPopup(`This is your current Location!`,{"width": "600"})
   });
 });
 } else {
@@ -132,7 +149,7 @@ L.tileLayer(`https://api.mapbox.com/styles/v1/mauriciotechdev/ck3fgsovo23vj1cunz
 }).addTo(mymap);
 
 // IIFE City and Town boundaries from MassGIS(Bureau of GeographicInformation)
-(()=>{
+const cityBoundaries = (()=>{
   fetch(`https://opendata.arcgis.com/datasets/3525b0ee6e6b427f9aab5d0a1d0a1a28_0.geojson`)
   .then(res => res.json())
   .then(res => {

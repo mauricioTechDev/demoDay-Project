@@ -33,8 +33,9 @@ module.exports = function(app, passport, db) {
       db.collection('userInfo').save(
         {
           income: req.body.income,
-          race: req.body.race,
+          // race: req.body.race,
           name: req.body.name,
+          interestedInTheCityOf: req.body.interestedInTheCityOf,
           createdBy: req.user._id,
         }, (err, result) => {
         if (err) return console.log(err)
@@ -43,20 +44,33 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    app.post('/favoriteCity', (req, res) => {
-      console.log(req.body)
-      db.collection('interestedLocations').save(
-        {
-          nameOfTheCity: req.body.nameOfTheCity,
-          // zillowIndex: req.body.zillowIndex,
-        }, (err, result) => {
-        if (err) return console.log(err)
-        console.log('saved to database')
-        res.redirect('/profile')
-      })
-    })
+    app.put("/updateUser", (req, res) => {
+   console.log("check update", req.body);
+   db.collection("userInfo").findOneAndUpdate(
+     { createdBy: req.user._id },
+     {
+       $set: {
+         income: req.body.income,
+         name: req.body.name,
+         interestedInTheCityOf: req.body.interestedInTheCityOf,
+         createdBy: req.user._id
+       }
+     },
+     { new: true,  upsert: true },
+     (err, result) => {
+       if (err) {
+         console.log("err", err);
+         return res.send(err);
+       }
+       console.log("res", result);
+       res.send(result);
+     }
+   );
+  });
 
-// to post the users current position
+
+
+// post the users current position
     app.post('/userCordinatesApi', (req, res) => {
       console.log('I got a request');
       // user lat and lon
@@ -82,31 +96,6 @@ module.exports = function(app, passport, db) {
     })
 
 
-
-
-    app.put("/updateUser", (req, res) => {
-   console.log("check update", req.body);
-   db.collection("userInfo").findOneAndUpdate(
-     { createdBy: req.user._id },
-     {
-       $set: {
-         income: req.body.income,
-         race: req.body.race,
-         name: req.body.name,
-         createdBy: req.user._id
-       }
-     },
-     { new: true,  upsert: true },
-     (err, result) => {
-       if (err) {
-         console.log("err", err);
-         return res.send(err);
-       }
-       console.log("res", result);
-       res.send(result);
-     }
-   );
- });
     // NOT NEEDED RIGHT NOW
     // app.put('/messages', (req, res) => {
     //   db.collection('userInfo')

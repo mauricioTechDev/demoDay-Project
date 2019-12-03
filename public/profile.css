@@ -21,3 +21,39 @@
 li{
   list-style: none;
 }
+.userInfoInputArea{
+  font-weight: bolder;
+  font-size: 33px;
+  font-family: inherit;
+  line-height: 70px;
+}
+.courses{
+  padding: 50px 0;
+}
+.questionSection{
+  float: left;
+    padding: 2% 1% 4.15% 1%;
+    width: 50%;
+}
+.userInfoSection{
+  order: 2px solid black;
+    float: left;
+    padding: 1% 10% .7% 13%;
+    width: 50%;
+}
+#team{
+  overflow: auto;
+}
+.submitForm{
+    display: inline-block;
+    padding: .75rem 1.25rem;
+    border-radius: 10rem;
+    color: black;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}

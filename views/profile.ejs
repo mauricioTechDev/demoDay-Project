@@ -111,8 +111,9 @@ https://templatemo.com/tm-516-known
      <section id="feature">
           <div class="container">
             <h2>Boston is a great City. Let's get some info. So you make the choice of where to live.</h2>
-      <% if (user.local.email) { %>
-        <form action="/userInfoIntake" autocomplete="off" method="POST">
+
+      <!-- <% if (user.local.email) { %> -->
+        <!-- <form action="/userInfoIntake" autocomplete="off" method="POST">
           <span>NAME</span>
           <input required="This field is required" type="text" placeholder="name" name="name">
           <span>Average annul income: </span>
@@ -129,25 +130,13 @@ https://templatemo.com/tm-516-known
             <option value="Native">Native</option>
           </select>
           <button type="submit">Submit</button>
-        </form>
+        </form> -->
       </div>
-      <% } %>
+      <!-- <% } %> -->
 
+      <section id="mapid"></section>
 
-      <!-- <span>Thumbs up for PAID - Check off to delete</span>
-          <ul class="userInfo">
-          <% for(var i=0; i<userInfo.length; i++) {%>
-            <li class="userInfo">
-              <span contenteditable="true"><%= userInfo[i].income %></span>
-              <span contenteditable="true"><%= userInfo[i].collegeDegree %></span>
-              <span contenteditable="true"><%= userInfo[i].race %></span>
-              <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-              <span><i class="fas fa-ban"></i></span>
-            </li>
-          <% } %>
-          </ul> -->
-
-               <div class="row">
+               <!-- <div class="row">
                     <div class="col-md-4 col-sm-4">
                       <div class="feature-thumb">
 
@@ -171,144 +160,97 @@ https://templatemo.com/tm-516-known
                     </div>
 
                </div>
-          </div>
+          </div> -->
      </section>
 
 
      <!-- TEAM -->
      <section id="team">
-       <section id="mapid"></section>
-          <!-- <div class="container">
-               <div class="row">
+       <% if (user.local.email) { %>
+         <section class="questionSection">
+           <form action="/userInfoIntake" autocomplete="off" method="POST">
+             <ul>
+               <li>
+                 <span class="userInfoInputArea">Name: </span>
+                 <input required="This field is required" type="text" placeholder="name" name="name">
+               </li>
+               <li>
+                 <span class="userInfoInputArea">Average annul income: </span>
+                 <input type="number" placeholder="annual income" name="income">
+               </li>
+               <li>
+                 <span class="userInfoInputArea">What area are you intereted in?</span>
+                 <select class="" name="interestedInTheCityOf">
+                   <option value="South Dorchester">South Dorchester</option>
+                   <option value="Roxbury">Roxbury</option>
+                   <option value="Jamaica Plain">Jamaica Plain</option>
+                   <option value="East Boston">East Boston</option>
+                   <option value="Brighton">Brighton</option>
+                   <option value="Mattapan">Mattapan</option>
+                   <option value="South Boston">South Boston</option>
+                   <option value="Hyde Park">Hyde Park</option>
+                   <option value="West Roxbury">West Roxbury</option>
+                   <option value="South End">South End</option>
+                   <option value="Roslindale">Roslindale</option>
+                   <option value="North Dorchester">North Dorchester</option>
+                   <option value="Allston">Allston</option>
+                   <option value="Back Bay">Back Bay</option>
+                   <option value="Fenway">Fenway</option>
+                   <option value="Charlestown">Charlestown</option>
+                   <option value="Kenmore">Kenmore</option>
+                   <option value="Mission Hill">Mission Hill</option>
+                   <option value="North End">North End</option>
+                   <option value="Beacon Hill">Beacon Hill</option>
+                   <option value="Chinatown">Chinatown</option>
+                   <option value="Downtown">Downtown</option>
+                 </select>
+               </li>
+               <li>
+                 <button class="submitForm" type="submit">Submit</button>
+               </li>
+             </ul>
+           </form>
+         </section>
+       <% } %>
 
-                    <div class="col-md-12 col-sm-12">
-                         <div class="section-title">
-                              <h2>Teachers <small>Meet Professional Trainers</small></h2>
-                         </div>
-                    </div>
+       <section class="userInfoSection">
+         <ul class="userInfo">
+         <% for(var i=0; i<userInfo.length; i++) {%>
+              <li class="userInfo">
+                 <span>PROFILE</span>
+                 <h3>User Name</h3>
+                 <p contenteditable="true"><%= userInfo[i].name %></p>
+                 <h3>User Average Income</h3>
+                 <p contenteditable="true"><%= userInfo[i].income %></p>
+                 <h3>What area are you intereted in?</h3>
+                 <p class="cityOfChoice"><%= userInfo[i].interestedInTheCityOf %></p>
+                 <p class="edit">CLICK TO UPDATE</p>
+                 <p class="trash">DELETE</p>
+             </li>
+             <%}%>
+           </ul>
+       </section>
 
-                    <div class="col-md-3 col-sm-6">
-                         <div class="team-thumb">
-                              <div class="team-image">
-                                   <img src="images/author-image1.jpg" class="img-responsive" alt="">
-                              </div>
-                              <div class="team-info">
-                                   <h3>Mark Wilson</h3>
-                                   <span>I love Teaching</span>
-                              </div>
-                              <ul class="social-icon">
-                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                                   <li><a href="#" class="fa fa-twitter"></a></li>
-                                   <li><a href="#" class="fa fa-instagram"></a></li>
-                              </ul>
-                         </div>
-                    </div>
 
-                    <div class="col-md-3 col-sm-6">
-                         <div class="team-thumb">
-                              <div class="team-image">
-                                   <img src="images/author-image2.jpg" class="img-responsive" alt="">
-                              </div>
-                              <div class="team-info">
-                                   <h3>Catherine</h3>
-                                   <span>Education is the key!</span>
-                              </div>
-                              <ul class="social-icon">
-                                   <li><a href="#" class="fa fa-google"></a></li>
-                                   <li><a href="#" class="fa fa-instagram"></a></li>
-                              </ul>
-                         </div>
-                    </div>
+         <h3></h3>
 
-                    <div class="col-md-3 col-sm-6">
-                         <div class="team-thumb">
-                              <div class="team-image">
-                                   <img src="images/author-image3.jpg" class="img-responsive" alt="">
-                              </div>
-                              <div class="team-info">
-                                   <h3>Jessie Ca</h3>
-                                   <span>I like Online Courses</span>
-                              </div>
-                              <ul class="social-icon">
-                                   <li><a href="#" class="fa fa-twitter"></a></li>
-                                   <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                   <li><a href="#" class="fa fa-linkedin"></a></li>
-                              </ul>
-                         </div>
-                    </div>
 
-                    <div class="col-md-3 col-sm-6">
-                         <div class="team-thumb">
-                              <div class="team-image">
-                                   <img src="images/author-image4.jpg" class="img-responsive" alt="">
-                              </div>
-                              <div class="team-info">
-                                   <h3>Andrew Berti</h3>
-                                   <span>Learning is fun</span>
-                              </div>
-                              <ul class="social-icon">
-                                   <li><a href="#" class="fa fa-twitter"></a></li>
-                                   <li><a href="#" class="fa fa-google"></a></li>
-                                   <li><a href="#" class="fa fa-behance"></a></li>
-                              </ul>
-                         </div>
-                    </div>
-
-               </div>
-          </div> -->
      </section>
 
 
      <!-- Courses -->
      <section id="courses">
-       <% if (user.local.email) { %>
-       <form action="/favoriteCity"  method="POST">
-         <select class="" name="nameOfTheCity">
-           <option value="South Dorchester">South Dorchester</option>
-           <option value="Roxbury">Roxbury</option>
-           <option value="Jamaica Plain">Jamaica Plain</option>
-           <option value="East Boston">East Boston</option>
-           <option value="Brighton">Brighton</option>
-           <option value="Mattapan">Mattapan</option>
-           <option value="South Boston">South Boston</option>
-           <option value="Hyde Park">Hyde Park</option>
-           <option value="West Roxbury">West Roxbury</option>
-           <option value="South End">South End</option>
-           <option value="Roslindale">Roslindale</option>
-           <option value="North Dorchester">North Dorchester</option>
-           <option value="Allston">Allston</option>
-           <option value="Back Bay">Back Bay</option>
-           <option value="Fenway">Fenway</option>
-           <option value="Charlestown">Charlestown</option>
-           <option value="Kenmore">Kenmore</option>
-           <option value="Mission Hill">Mission Hill</option>
-           <option value="North End">North End</option>
-           <option value="Beacon Hill">Beacon Hill</option>
-           <option value="Chinatown">Chinatown</option>
-           <option value="Downtown">Downtown</option>
-         </select>
-         <button type="submit" name="button">Estimate</button>
-       </form>
-       <% } %>
-
-      
-
-
-
-
-
-
-
-
-          <!-- <div class="container">
+          <div class="container">
                <div class="row">
+                 <h2>Average Home Price</h2>
+                <span>$<span class="averageHomePrice"></span></span>
 
-                    <div class="col-md-12 col-sm-12">
+                    <!-- <div class="col-md-12 col-sm-12">
                          <div class="section-title">
                               <h2>Popular Courses <small>Upgrade your skills with newest courses</small></h2>
-                         </div>
+                         </div> -->
 
-                         <div class="owl-carousel owl-theme owl-courses">
+                         <!-- <div class="owl-carousel owl-theme owl-courses">
                               <div class="col-md-4 col-sm-4">
                                    <div class="item">
                                         <div class="courses-thumb">
@@ -400,9 +342,9 @@ https://templatemo.com/tm-516-known
                                              </div>
                                         </div>
                                    </div>
-                              </div>
+                              </div> -->
 
-                              <div class="col-md-4 col-sm-4">
+                              <!-- <div class="col-md-4 col-sm-4">
                                    <div class="item">
                                         <div class="courses-thumb">
                                              <div class="courses-top">
@@ -431,9 +373,9 @@ https://templatemo.com/tm-516-known
                                              </div>
                                         </div>
                                    </div>
-                              </div>
+                              </div> -->
 
-                              <div class="col-md-4 col-sm-4">
+                              <!-- <div class="col-md-4 col-sm-4">
                                    <div class="item">
                                         <div class="courses-thumb">
                                              <div class="courses-top">
@@ -462,12 +404,12 @@ https://templatemo.com/tm-516-known
                                              </div>
                                         </div>
                                    </div>
-                              </div>
+                              </div> -->
 
-                         </div>
+                         <!-- </div> -->
 
                </div>
-          </div> -->
+          </div>
      </section>
 
 
