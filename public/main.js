@@ -86,10 +86,31 @@ Array.from(trash).forEach(function(element) {
         .then(res => {
           console.log("getting exact address")
           let addressOfExampleHome = res.features[0].place_name
-          console.log(addressOfExampleHome.split(', '))
+          let arrayOfAddressExample = addressOfExampleHome.split(',')
+          console.log(arrayOfAddressExample)
+          let address = arrayOfAddressExample.splice(0,1)
+          let city = arrayOfAddressExample.splice(0,1)
+          let state = (arrayOfAddressExample.splice(0,1))
           // document.querySelector('#rawAddress').textContent = rawAddress
-        // fetch(` http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=2114+Bigelow+Ave&citystatezip=Seattle%2C+WA`)
+        fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=${address}&citystatezip=${city}${state}`)
+          // SAVE THIS INFO TO THE DATABASE SO I CAN GET IT ON ANOTHER PAGE OR EVEN ON THE SAME PAGE ;>/
+          .then(res => res.text())
+          .then(res => {
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(res,"application/xml")
+            console.log("house INFO")
+            console.log("zillow")
+            console.log(xmlDoc)
+            console.log(xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue)
+            console.log(xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue)
+            console.log(xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue)
+            console.log(xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue)
+            console.log(xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue)
+            console.log(xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue)
+            console.log(xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue)
 
+
+          })
         })
       }
     }
