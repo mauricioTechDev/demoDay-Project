@@ -56,4 +56,28 @@ li{
     position: relative;
     overflow: hidden;
     z-index: 1;
+    width: 20%;
+    font-size: 17px;
+}
+.userInfoName{
+  border: .1px solid black;
+padding: 1%;
+}
+.userInfoIncome{
+  border: .1px solid black;
+padding: 1%;
+}
+.averageHomePriceTitle{
+  text-align: center;
+    font-size: 43px;
+}
+.averageHomePrice{
+  text-align: center;
+    font-size: 50px;
+    font-weight: bolder;
+}
+.averageHomePriceDollarSign{
+  text-align: center;
+    font-size: 50px;
+    font-weight: bolder;
 }

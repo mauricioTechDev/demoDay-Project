@@ -29,7 +29,7 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/userInfoIntake', (req, res) => {
-      // console.log(req.body)
+      console.log(req.body)
       db.collection('userInfo').save(
         {
           income: req.body.income,
@@ -68,13 +68,45 @@ module.exports = function(app, passport, db) {
    );
   });
 
+  // SAVING THE FOUND address
+  app.post('/saveHouse', (req, res) => {
+    console.log("Home Request")
+    console.log(req.body)
+    db.collection('saveHomeList').save(
+      {
+        amount: req.body.amount,
+        street: req.body.street,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        bathrooms: req.body.bathrooms,
+        yearBuilt: req.body.yearBuilt,
+        homeWebPage: req.body.homeWebPage,
+        createdBy: req.user._id
+      }, (err, result) => {
+        if (err) return console.log(err)
+        console.log("saved home to the database")
+        res.json({
+         status: 'success',
+         amount: req.body.amount,
+         street: req.body.street,
+         city: req.body.city,
+         state: req.body.state,
+         zipcode: req.body.zipcode,
+         bathrooms: req.body.bathrooms,
+         yearBuilt: req.body.yearBuilt,
+         homeWebPage: req.body.homeWebPage,
+      })
+    })
+  })
+
 
 
 // post the users current position
     app.post('/userCordinatesApi', (req, res) => {
       console.log('I got a request');
       // user lat and lon
-      console.log(req.body);
+      // console.log(req.body);
       const userLogInLocationData = req.body
       const timestamp = Date.now();
       userLogInLocationData.timestamp = timestamp

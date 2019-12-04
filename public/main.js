@@ -89,8 +89,12 @@ Array.from(trash).forEach(function(element) {
           let arrayOfAddressExample = addressOfExampleHome.split(',')
           console.log(arrayOfAddressExample)
           let address = arrayOfAddressExample.splice(0,1)
+          console.log(address)
           let city = arrayOfAddressExample.splice(0,1)
-          let state = (arrayOfAddressExample.splice(0,1))
+          console.log(city)
+          let state = arrayOfAddressExample.splice(0,1)
+          console.log(state)
+
           // document.querySelector('#rawAddress').textContent = rawAddress
         fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=${address}&citystatezip=${city}${state}`)
           // SAVE THIS INFO TO THE DATABASE SO I CAN GET IT ON ANOTHER PAGE OR EVEN ON THE SAME PAGE ;>/
@@ -101,15 +105,38 @@ Array.from(trash).forEach(function(element) {
             console.log("house INFO")
             console.log("zillow")
             console.log(xmlDoc)
-            console.log(xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue)
-            console.log(xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue)
-            console.log(xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue)
-            console.log(xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue)
-            console.log(xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue)
-            console.log(xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue)
-            console.log(xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue)
+            let homeWebPage = xmlDoc.getElementsByTagName("homedetails")[0].childNodes[0].nodeValue
+            console.log(homeWebPage)
+            let amount = xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue
+            console.log(amount)
+            let street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue
+            console.log(street)
+            let zipcode = xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue
+            console.log(zipcode)
+            let city = xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue
+            console.log(city)
+            let state = xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue
+            console.log(state)
 
+            let yearBuilt = xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue
+            let bathrooms = xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue
+            let bedrooms = xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue
+            // Getting all of the home data packaging it up and psoting it to my database
+            const homeData ={amount, street, city, state, zipcode, bathrooms, bedrooms, yearBuilt, homeWebPage}
+            const options = {
+              method: "post",
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(homeData)
+            };
+            fetch('/saveHouse', options)
+            .then(res => res.json())
+            .then(res => {
+              console.log(res)
+              // MARKS USERS CURRENT LOCATION
 
+            });
           })
         })
       }
@@ -132,9 +159,9 @@ Array.from(trash).forEach(function(element) {
 
 // GEOLOCATION OF THE USER
 if ("geolocation" in navigator) {
-  console.log("geolocation available")
+  // console.log("geolocation available")
   navigator.geolocation.getCurrentPosition(position => {
-  console.log(position);
+  // console.log(position);
   const currentUserLat = position.coords.latitude
   const currentUserLon = position.coords.longitude
   const userCordinates ={currentUserLat, currentUserLon}
@@ -148,7 +175,7 @@ if ("geolocation" in navigator) {
   fetch('/userCordinatesApi', options)
   .then(res => res.json())
   .then(res => {
-    console.log(res)
+    // console.log(res)
     // MARKS USERS CURRENT LOCATION
     const marker = L.marker([res.latitude, res.longitude]).addTo(mymap);
     const markerPopUp = marker.bindPopup(`This is your current Location!`,{"width": "600"})

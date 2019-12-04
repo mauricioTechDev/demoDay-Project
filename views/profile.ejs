@@ -111,28 +111,7 @@ https://templatemo.com/tm-516-known
      <section id="feature">
           <div class="container">
             <h2>Boston is a great City. Let's get some info. So you make the choice of where to live.</h2>
-
-      <!-- <% if (user.local.email) { %> -->
-        <!-- <form action="/userInfoIntake" autocomplete="off" method="POST">
-          <span>NAME</span>
-          <input required="This field is required" type="text" placeholder="name" name="name">
-          <span>Average annul income: </span>
-          <input type="number" placeholder="annual income" name="income">
-          <span>Race & Ethnicity</span>
-          <select class="" name="race">
-            <option value="Hispanic">Hispanic</option>
-            <option value="White">White</option>
-            <option value="Black">Black</option>
-            <option value="Asian">Asian</option>
-            <option value="Islander">Islander</option>
-            <option value="Other">Other</option>
-            <option value="Two+">Two+</option>
-            <option value="Native">Native</option>
-          </select>
-          <button type="submit">Submit</button>
-        </form> -->
-      </div>
-      <!-- <% } %> -->
+          </div>
 
       <section id="mapid"></section>
 
@@ -176,6 +155,7 @@ https://templatemo.com/tm-516-known
                </li>
                <li>
                  <span class="userInfoInputArea">Average annul income: </span>
+                 <span>(only visible to you)</span>
                  <input type="number" placeholder="annual income" name="income">
                </li>
                <li>
@@ -219,9 +199,9 @@ https://templatemo.com/tm-516-known
               <li class="userInfo">
                  <span>PROFILE</span>
                  <h3>User Name</h3>
-                 <p contenteditable="true"><%= userInfo[i].name %></p>
+                 <p contenteditable="true" class="userInfoName"><%= userInfo[i].name %></p>
                  <h3>User Average Income</h3>
-                 <p contenteditable="true"><%= userInfo[i].income %></p>
+                 <p contenteditable="true" class="userInfoIncome"><%= userInfo[i].income %></p>
                  <h3>What area are you intereted in?</h3>
                  <p class="cityOfChoice"><%= userInfo[i].interestedInTheCityOf %></p>
                  <p class="edit">CLICK TO UPDATE</p>
@@ -242,8 +222,8 @@ https://templatemo.com/tm-516-known
      <section id="courses">
           <div class="container">
                <div class="row">
-                 <h2>Average Home Price</h2>
-                <span>$<span class="averageHomePrice"></span></span>
+                 <h2 class="averageHomePriceTitle">Average Home Price In The Area <%=user.local.interestedInTheCityOf%></h2>
+                <p class="averageHomePriceDollarSign">$<span class="averageHomePrice"></span></p>
 
                     <!-- <div class="col-md-12 col-sm-12">
                          <div class="section-title">
@@ -418,12 +398,32 @@ https://templatemo.com/tm-516-known
           <div class="container">
                <div class="row">
 
-                    <div class="col-md-12 col-sm-12">
+                 <section class="userInfoSection">
+                   <ul class="userInfo">
+                        <li class="userInfo">
+                           <span>PROFILE</span>
+                           <h3>User Name</h3>
+                           <p></p>
+                           <h3>User Average Income</h3>
+                           <p></p>
+                           <h3>What area are you intereted in?</h3>
+                           <p></p>
+                           <p>CLICK TO UPDATE</p>
+                           <p class="trash">DELETE</p>
+                       </li>
+                     </ul>
+                 </section>
+
+
+
+
+                    <!-- <div class="col-md-12 col-sm-12">
                          <div class="section-title">
                               <h2>Student Reviews <small>from around the world</small></h2>
                          </div>
+                          HELLO -->
 
-                         <div class="owl-carousel owl-theme owl-client">
+                         <!-- <div class="owl-carousel owl-theme owl-client">
                               <div class="col-md-4 col-sm-4">
                                    <div class="item">
                                         <div class="tst-image">
@@ -502,13 +502,13 @@ https://templatemo.com/tm-516-known
 
                          </div>
 
-               </div>
+               </div> --> -->
           </div>
      </section>
 
 
      <!-- CONTACT -->
-     <!-- <section id="contact">
+     <section id="contact">
           <div class="container">
                <div class="row">
 
@@ -541,7 +541,7 @@ https://templatemo.com/tm-516-known
 
                </div>
           </div>
-     </section> -->
+     </section>
 
 
      <!-- FOOTER -->
