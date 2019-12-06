@@ -1,0 +1,73 @@
+.welcomeMessage{
+  font-size: 16px;
+  margin: 8% 0% 4% 0%;
+  font-family: unset;
+  font-family: 'Nunito', sans-serif;
+  color: #626262;;
+}
+
+.submitForm{
+    display: inline-block;
+    padding: .75rem 1.25rem;
+    border-radius: 10rem;
+    color: black;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 20%;
+    font-size: 17px;
+}
+li{
+  list-style: none;
+  text-align: center;
+}
+.titleOfComment{
+  font-size: 40px;
+  line-height: 45px;
+}
+.commentArea{
+  font-size: 40px;
+  line-height: 45px;
+}
+.commentInputSection{
+ padding-top: 0%;
+}
+.feature-thumb:hover {
+  -moz-box-shadow: 0 0 10px #ccc;
+       -webkit-box-shadow: 0 0 10px #ccc;
+       box-shadow: 0 0 10px #ccc;
+}
+
+input{
+  color: #474954;
+border-bottom-left-radius: 5px;
+display: block;
+margin-top: 0px;
+margin-right: 0px;
+margin-bottom: 15px;
+margin-left: 0px;
+padding-top: 12px;
+padding-right: 25px;
+padding-bottom: 12px;
+padding-left: 25px;
+max-width: 100%;
+width: 100%;
+}
+textarea{
+  border-bottom-left-radius: 5px;
+  display: block;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 15px;
+  margin-left: 0px;
+  padding-top: 12px;
+  padding-right: 25px;
+  padding-bottom: 12px;
+  padding-left: 25px;
+  max-width: 100%;
+  width: 100%;
+}

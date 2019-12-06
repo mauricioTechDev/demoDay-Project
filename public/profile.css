@@ -81,3 +81,24 @@ padding: 1%;
     font-size: 50px;
     font-weight: bolder;
 }
+.introduceHome{
+  font-size: 42px;
+}
+.exampleHomeStreet{
+  font-size: 40px;
+  }
+.exampleHomeCity{
+    font-size: 40px;
+    }
+.exampleHomeState{
+  font-size: 40px;
+  }
+.exampleHomeZipcode {
+  font-size: 40px;
+}
+.homeRoomInfo{
+  font-size: 42px;
+}
+.clickToGetMoreInfoOnHome{
+  font-size: 25px;
+}

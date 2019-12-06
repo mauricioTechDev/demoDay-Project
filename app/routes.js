@@ -20,6 +20,22 @@ module.exports = function(app, passport, db) {
         })
     });
 
+    // SHARE YOUR THOUGHTS SECTIONS =========================
+
+    app.get('/shareYourThoughts', isLoggedIn, function(req, res) {
+        db.collection('shareYourThoughts').find().toArray((err, result) => {
+          // console.log(result)
+          // console.log(req.user)
+          if (err) return console.log(err)
+          res.render('shareYourThoughts.ejs', {
+            user : req.user,
+            shareYourThoughts: result
+          })
+        })
+    });
+
+
+
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
         req.logout();
@@ -29,11 +45,9 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/userInfoIntake', (req, res) => {
-      console.log(req.body)
       db.collection('userInfo').save(
         {
           income: req.body.income,
-          // race: req.body.race,
           name: req.body.name,
           interestedInTheCityOf: req.body.interestedInTheCityOf,
           createdBy: req.user._id,
@@ -44,10 +58,30 @@ module.exports = function(app, passport, db) {
       })
     })
 
+    app.post('/shareYourThoughts', (req, res) => {
+
+      console.log("hi world"+req.user.local.email)
+      db.collection('shareYourThoughts').save(
+        {
+          title: req.body.title,
+          commentArea: req.body.commentArea,
+          name: req.body.name,
+          email: req.user.local.email
+          // fireUp: 0,
+          // email: req.session.passport.user.local.email,
+          // createdBy: req.user.email,
+        }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/shareYourThoughts')
+      })
+    })
+
+// UPDATE THE USER PROFILE
     app.put("/updateUser", (req, res) => {
    console.log("check update", req.body);
    db.collection("userInfo").findOneAndUpdate(
-     { createdBy: req.user._id },
+     { createdBy: req.user._icd },
      {
        $set: {
          income: req.body.income,
@@ -68,10 +102,28 @@ module.exports = function(app, passport, db) {
    );
   });
 
+
+
+// UPDATE FIRE RANK
+  // app.put('/shareYourThoughts', (req, res) => {
+  //     db.collection('shareYourThoughts')
+  //     .findOneAndUpdate({title: req.body.title, commentArea: req.body.commentArea, createdBy: req.user._id}, {
+  //       $set: {
+  //         fireUp:req.body.fireUp + 1
+  //       }
+  //     }, {
+  //       // sort: {_id: -1},
+  //       upsert: false
+  //     }, (err, result) => {
+  //       if (err) return res.send(err)
+  //       res.send(result)
+  //     })
+  //   })
+
   // SAVING THE FOUND address
   app.post('/saveHouse', (req, res) => {
-    console.log("Home Request")
-    console.log(req.body)
+    // console.log("Home Request")
+    // console.log(req.body)
     db.collection('saveHomeList').save(
       {
         amount: req.body.amount,
@@ -80,6 +132,7 @@ module.exports = function(app, passport, db) {
         state: req.body.state,
         zipcode: req.body.zipcode,
         bathrooms: req.body.bathrooms,
+        bedrooms: req.body.bedrooms,
         yearBuilt: req.body.yearBuilt,
         homeWebPage: req.body.homeWebPage,
         createdBy: req.user._id
@@ -94,6 +147,7 @@ module.exports = function(app, passport, db) {
          state: req.body.state,
          zipcode: req.body.zipcode,
          bathrooms: req.body.bathrooms,
+         bedrooms: req.body.bedrooms,
          yearBuilt: req.body.yearBuilt,
          homeWebPage: req.body.homeWebPage,
       })
@@ -104,7 +158,7 @@ module.exports = function(app, passport, db) {
 
 // post the users current position
     app.post('/userCordinatesApi', (req, res) => {
-      console.log('I got a request');
+      // console.log('I got a request');
       // user lat and lon
       // console.log(req.body);
       const userLogInLocationData = req.body
@@ -145,8 +199,14 @@ module.exports = function(app, passport, db) {
     // })
 
     app.delete('/messages', (req, res) => {
-      console.log(res)
       db.collection('userInfo').findOneAndDelete({income: req.body.income, race: req.body.race, name: req.body.name}, (err, result) => {
+        if (err) return res.send(500, err)
+        res.send('Message deleted!')
+      })
+    })
+    app.delete('/deleteShareYourThoughts', (req, res) => {
+      console.log(req.body.title, req.body.commentArea)
+      db.collection('shareYourThoughts').findOneAndDelete({title: req.body.title, commentArea: req.body.commentArea}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })

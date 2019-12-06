@@ -4,7 +4,7 @@ var trash = document.getElementsByClassName("trash");
 // EDIT USER INPUT FIELD
 Array.from(edit).forEach(function(element) {
   element.addEventListener("click", function() {
-    console.log(edit);
+    // console.log(edit);
     const name = this.parentNode.childNodes[5].innerText
     const income = this.parentNode.childNodes[9].innerText
     const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
@@ -62,6 +62,7 @@ Array.from(trash).forEach(function(element) {
   fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&state=ma&city=boston&childtype=neighborhood`)
   .then(res => res.text())
   .then(res => {
+    // console.log(res)
     // The DOMParser interface provides the ability to parse XML or HTML source code from a string into a DOM Document
     parser = new DOMParser();
     // Once you have created a parser object, you can parse XML from a string using the parseFromString() method:
@@ -71,6 +72,9 @@ Array.from(trash).forEach(function(element) {
     let choiceOfCityUserIsInnterestedIn = document.querySelector(".cityOfChoice").innerText
     var latitude;
     var longitude;
+
+
+
     for(let i = 0; i<=31; i++){
       if (xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue == choiceOfCityUserIsInnterestedIn){
         console.log(xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue)
@@ -87,13 +91,13 @@ Array.from(trash).forEach(function(element) {
           console.log("getting exact address")
           let addressOfExampleHome = res.features[0].place_name
           let arrayOfAddressExample = addressOfExampleHome.split(',')
-          console.log(arrayOfAddressExample)
+          // console.log(arrayOfAddressExample)
           let address = arrayOfAddressExample.splice(0,1)
-          console.log(address)
+          // console.log(address)
           let city = arrayOfAddressExample.splice(0,1)
-          console.log(city)
+          // console.log(city)
           let state = arrayOfAddressExample.splice(0,1)
-          console.log(state)
+          // console.log(state)
 
           // document.querySelector('#rawAddress').textContent = rawAddress
         fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=${address}&citystatezip=${city}${state}`)
@@ -106,22 +110,16 @@ Array.from(trash).forEach(function(element) {
             console.log("zillow")
             console.log(xmlDoc)
             let homeWebPage = xmlDoc.getElementsByTagName("homedetails")[0].childNodes[0].nodeValue
-            console.log(homeWebPage)
+            // console.log(homeWebPage)
             let amount = xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue
-            console.log(amount)
             let street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue
-            console.log(street)
             let zipcode = xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue
-            console.log(zipcode)
             let city = xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue
-            console.log(city)
             let state = xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue
-            console.log(state)
-
             let yearBuilt = xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue
             let bathrooms = xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue
             let bedrooms = xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue
-            // Getting all of the home data packaging it up and psoting it to my database
+            // Getting all of the home data packaging it up and posting it up to my database
             const homeData ={amount, street, city, state, zipcode, bathrooms, bedrooms, yearBuilt, homeWebPage}
             const options = {
               method: "post",
@@ -134,8 +132,15 @@ Array.from(trash).forEach(function(element) {
             .then(res => res.json())
             .then(res => {
               console.log(res)
-              // MARKS USERS CURRENT LOCATION
-
+              document.querySelector('.exampleHomeStreet').innerHTML = res.street + " "
+              document.querySelector('.exampleHomeCity').innerHTML = res.city + " "
+              document.querySelector('.exampleHomeState').innerHTML = res.state + " "
+              document.querySelector('.exampleHomeZipcode').innerHTML = res.zipcode
+              document.querySelector('.exampleHomeBathrooms').innerHTML = res.bathrooms
+              document.querySelector('.exampleHomeBedrooms').innerHTML = res.bedrooms
+              document.querySelector('.exampleHomeYearbuilt').innerHTML = res.yearBuilt
+              let webSite = res.homeWebPage
+              document.querySelector(".clickToGetMoreInfoOnHome").href = `${res.homeWebPage}`;
             });
           })
         })
