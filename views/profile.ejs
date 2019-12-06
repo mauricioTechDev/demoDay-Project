@@ -186,7 +186,7 @@ https://templatemo.com/tm-516-known
                  </select>
                </li>
                <li>
-                 <button class="submitForm" type="submit">Submit</button>
+                 <button id="pushForHomes" class="submitForm" type="submit">Submit</button>
                </li>
              </ul>
            </form>
@@ -200,7 +200,7 @@ https://templatemo.com/tm-516-known
                  <span>PROFILE</span>
                  <h3>User Name</h3>
                  <p contenteditable="true" class="userInfoName"><%= userInfo[i].name %></p>
-                 <h3>User Average Income</h3>
+                 <!-- <h3>User Average Income</h3> -->
                  <p contenteditable="true" class="userInfoIncome"><%= userInfo[i].income %></p>
                  <h3>What area are you intereted in?</h3>
                  <p class="cityOfChoice"><%= userInfo[i].interestedInTheCityOf %></p>
@@ -399,22 +399,25 @@ https://templatemo.com/tm-516-known
                <div class="row">
 
                  <section>
-                   <ul>
-                        <li>
-                          <% for(var i=0; i<userInfo.length; i++) {%>
-                           <h3 class="introduceHome">Hi, <%=user.local.email%> here is a house from <%=userInfo[i].interestedInTheCityOf%></h3>
-                           <%}%>
-                           <h3 class="introduceHome">Home Address</h3>
-                           <span class="exampleHomeStreet"></span>
-                           <span class="exampleHomeCity"></span>
-                           <span class="exampleHomeState"></span>
-                           <span class="exampleHomeZipcode"></span>
-                           <h3 class="homeRoomInfo">Bathrooms: <span class="exampleHomeBathrooms"></span></h3>
-                           <h3 class="homeRoomInfo">Bedrooms: <span class="exampleHomeBedrooms"></span></h3>
-                           <h3 class="homeRoomInfo">Year Built: <span class="exampleHomeYearbuilt"></span> </h3>
-                           <a class="clickToGetMoreInfoOnHome" href=" " target="_blank" rel="noopener noreferrer">Click For More Innfo</a>
-                           <p class="trash">DELETE</p>
-                       </li>
+                   <ul class="homeList" >
+                     <% for(var i=0; i<homes.length; i++) {%>
+                       <% if(homes[i].amount <= 600000) { %>
+                          <li>
+                             <h3 class="introduceHome">Home Address</h3>
+                             <span class="exampleHomeStreet"><%= homes[i].street %></span>
+                             <span class="exampleHomeCity"><%= homes[i].city %></span>
+                             <span class="exampleHomeState"><%= homes[i].state %></span>
+                             <span class="exampleHomeZipcode"><%= homes[i].zipcode %></span>
+                             <h3 class="homePrice">Price: <span class="homePrice"><%= homes[i].amount %></span></h3>
+                             <h3 class="homeRoomInfo">Bathrooms: <span class="exampleHomeBathrooms"><%= homes[i].bathrooms %></span></h3>
+                             <h3 class="homeRoomInfo">Bedrooms: <span class="exampleHomeBedrooms"><%= homes[i].bedrooms %></span></h3>
+                             <h3 class="homeRoomInfo">Year Built: <span class="exampleHomeYearbuilt"><%= homes[i].zipcode %></span> </h3>
+                             <a class="clickToGetMoreInfoOnHome" href=" " target="_blank" rel="noopener noreferrer">Click For More Innfo</a>
+                             <p class="save">SAVE</p>
+                             <p class="deleteHome">DELETE</p>
+                         </li>
+                       <%}%>
+                      <%}%>
                      </ul>
                  </section>
 
@@ -539,7 +542,7 @@ https://templatemo.com/tm-516-known
 
                     <div class="col-md-6 col-sm-12">
                          <div class="contact-image">
-                              <img src="images/contact-image.jpg" class="img-responsive" alt="Smiling Two Girls">
+                              <!-- <img src="images/contact-image.jpg" class="img-responsive" alt="Smiling Two Girls"> -->
                          </div>
                     </div>
 

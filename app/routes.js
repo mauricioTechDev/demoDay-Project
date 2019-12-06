@@ -10,14 +10,24 @@ module.exports = function(app, passport, db) {
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
       let uId = req.user._id
-        db.collection('userInfo').find({createdBy: uId}).toArray((err, result) => {
-          console.log(result)
+        db.collection('userInfo').find({createdBy: uId}).toArray((err, userInfo) => {
           if (err) return console.log(err)
-          res.render('profile.ejs', {
-            user : req.user,
-            userInfo: result
+          db.collection('saveHomeList').find({createdBy: uId}).toArray((err, homes) => {
+            if (err) return console.log(err)
+            console.log(userInfo);
+            console.log(homes);
+            for(const home of homes) {
+              home.amount = parseFloat(home.amount);
+              console.table(home)
+            }
+            res.render('profile.ejs', {
+              user : req.user,
+              userInfo: userInfo,
+              homes: homes
+            })
           })
         })
+
     });
 
     // SHARE YOUR THOUGHTS SECTIONS =========================
@@ -200,6 +210,26 @@ module.exports = function(app, passport, db) {
 
     app.delete('/messages', (req, res) => {
       db.collection('userInfo').findOneAndDelete({income: req.body.income, race: req.body.race, name: req.body.name}, (err, result) => {
+        if (err) return res.send(500, err)
+        res.send('Message deleted!')
+      })
+    })
+    app.delete('/deleteHome', (req, res) => {
+      // console.log(req.body.title, req.body.commentArea)
+      console.log('hello');
+      console.log(req.body.street);
+      console.log(req.body.city);
+      console.log(req.body.zipcode);
+      db.collection('saveHomeList').findOneAndDelete({
+      street: req.body.street,
+      city: req.body.city,
+      // state: req.body.state,
+      zipcode: req.body.zipcode
+      // bathrooms: req.body.bathrooms,
+      // bedrooms: req.body.bedrooms,
+      // yearBuilt: req.body.yearBuilt,
+      // homeWebPage: req.body.homeWebPage,
+      }, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })

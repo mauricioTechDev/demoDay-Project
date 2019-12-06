@@ -1,5 +1,6 @@
 var edit = document.getElementsByClassName("edit");
 var trash = document.getElementsByClassName("trash");
+var deleteHome = document.getElementsByClassName("deleteHome")
 // myDomuus.com
 // EDIT USER INPUT FIELD
 Array.from(edit).forEach(function(element) {
@@ -33,13 +34,9 @@ Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
         const name = this.parentNode.childNodes[5].innerText
         const income = this.parentNode.childNodes[9].innerText
-        console.log(income)
-        // const collegeDegree = this.parentNode.childNodes[13].innerText
-        const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
-        console.log(interestedInTheCityOf)
-        // console.log(name)
         // console.log(income)
-        // console.log(collegeDegree)
+        const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
+        // console.log(interestedInTheCityOf)
         fetch('messages', {
           method: 'delete',
           headers: {
@@ -55,10 +52,51 @@ Array.from(trash).forEach(function(element) {
         })
       });
 });
+// DELETE A HOME
+Array.from(deleteHome).forEach(function(element) {
+  let ul = document.getElementsByClassName("homeList")
+  console.log(ul)
+      element.addEventListener('click', function(){
+        const street = this.parentNode.childNodes[3].innerText
+        const city = this.parentNode.childNodes[5].innerText
+        const state = this.parentNode.childNodes[7].innerText
+        const zipcode = this.parentNode.childNodes[9].innerText
+        const bathrooms = this.parentNode.childNodes[11].innerText
+        const bedrooms = this.parentNode.childNodes[13].innerText
+        const yearBuilt = this.parentNode.childNodes[15].innerText
 
+        console.log(street, city, state, zipcode, bathrooms, bedrooms, yearBuilt)
+
+        // console.log(name)
+        // console.log(income)
+        // console.log(collegeDegree)
+        fetch('deleteHome', {
+          method: 'delete',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'street': street,
+            'city': city,
+            'state': state,
+            'zipcode': zipcode,
+            'bathrooms': bathrooms,
+            'bedrooms': bedrooms,
+            'yearBuilt': yearBuilt
+
+          })
+        }).then(function (response) {
+          window.location.reload()
+        })
+      });
+});
+
+
+let btn = document.getElementById("pushForHomes")
 
 //  CORS proxy added in to have access to API. CORS Anywhere is a NodeJS proxy which adds CORS headers to the proxied request.
-(()=>{
+btn.addEventListener("click", ()=>{
+  console.log("I AM CLICKED")
   fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&state=ma&city=boston&childtype=neighborhood`)
   .then(res => res.text())
   .then(res => {
@@ -67,28 +105,27 @@ Array.from(trash).forEach(function(element) {
     parser = new DOMParser();
     // Once you have created a parser object, you can parse XML from a string using the parseFromString() method:
     xmlDoc = parser.parseFromString(res,"application/xml")
-    console.log("zillow")
-    console.log(xmlDoc)
-    let choiceOfCityUserIsInnterestedIn = document.querySelector(".cityOfChoice").innerText
+    // console.log("zillow")
+    // console.log(xmlDoc)
+    // console.log(xmlDoc.getElementsByTagName("zindex")[0].innerHTML)
+    let choicePrice = document.querySelector(".userInfoIncome").innerText
+    // console.log(choicePrice)
+    // let choiceOfCityUserIsInnterestedIn = document.querySelector(".cityOfChoice").innerText
     var latitude;
     var longitude;
-
-
-
-    for(let i = 0; i<=31; i++){
-      if (xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue == choiceOfCityUserIsInnterestedIn){
+    for (let i=0; i<=25; i++){
+      if(xmlDoc.getElementsByTagName("zindex")[i].innerHTML <= choicePrice){
+        console.log(xmlDoc.getElementsByTagName("zindex")[i].innerHTML)
         console.log(xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue)
-        console.log(xmlDoc.getElementsByTagName("zindex")[i].childNodes[0].nodeValue)
-        document.querySelector(".averageHomePrice").innerHTML = xmlDoc.getElementsByTagName("zindex")[i].childNodes[0].nodeValue
         var latitude = xmlDoc.getElementsByTagName("latitude")[i+1].childNodes[0].nodeValue
         var longitude = xmlDoc.getElementsByTagName("longitude")[i+1].childNodes[0].nodeValue
-        console.log(longitude)
-        console.log(latitude)
-        // reversegeocoding
-        fetch(`https://cors-anywhere.herokuapp.com/https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${tileAPIkey}`)
+        // console.log(longitude)
+        // console.log(latitude)
+        fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${tileAPIkey}`)
         .then(res => res.json())
         .then(res => {
-          console.log("getting exact address")
+          // console.log("getting exact address")
+          // console.log(res)
           let addressOfExampleHome = res.features[0].place_name
           let arrayOfAddressExample = addressOfExampleHome.split(',')
           // console.log(arrayOfAddressExample)
@@ -98,51 +135,52 @@ Array.from(trash).forEach(function(element) {
           // console.log(city)
           let state = arrayOfAddressExample.splice(0,1)
           // console.log(state)
-
           // document.querySelector('#rawAddress').textContent = rawAddress
-        fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=${address}&citystatezip=${city}${state}`)
-          // SAVE THIS INFO TO THE DATABASE SO I CAN GET IT ON ANOTHER PAGE OR EVEN ON THE SAME PAGE ;>/
-          .then(res => res.text())
-          .then(res => {
-            parser = new DOMParser();
-            xmlDoc = parser.parseFromString(res,"application/xml")
-            console.log("house INFO")
-            console.log("zillow")
-            console.log(xmlDoc)
-            let homeWebPage = xmlDoc.getElementsByTagName("homedetails")[0].childNodes[0].nodeValue
-            // console.log(homeWebPage)
-            let amount = xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue
-            let street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue
-            let zipcode = xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue
-            let city = xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue
-            let state = xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue
-            let yearBuilt = xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue
-            let bathrooms = xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue
-            let bedrooms = xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue
-            // Getting all of the home data packaging it up and posting it up to my database
-            const homeData ={amount, street, city, state, zipcode, bathrooms, bedrooms, yearBuilt, homeWebPage}
-            const options = {
-              method: "post",
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(homeData)
-            };
-            fetch('/saveHouse', options)
-            .then(res => res.json())
-            .then(res => {
-              console.log(res)
-              document.querySelector('.exampleHomeStreet').innerHTML = res.street + " "
-              document.querySelector('.exampleHomeCity').innerHTML = res.city + " "
-              document.querySelector('.exampleHomeState').innerHTML = res.state + " "
-              document.querySelector('.exampleHomeZipcode').innerHTML = res.zipcode
-              document.querySelector('.exampleHomeBathrooms').innerHTML = res.bathrooms
-              document.querySelector('.exampleHomeBedrooms').innerHTML = res.bedrooms
-              document.querySelector('.exampleHomeYearbuilt').innerHTML = res.yearBuilt
-              let webSite = res.homeWebPage
-              document.querySelector(".clickToGetMoreInfoOnHome").href = `${res.homeWebPage}`;
-            });
-          })
+              fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=${address}&citystatezip=${city}${state}`)
+                // SAVE THIS INFO TO THE DATABASE SO I CAN GET IT ON ANOTHER PAGE OR EVEN ON THE SAME PAGE ;>/
+                .then(res => res.text())
+                .then(res => {
+                  parser = new DOMParser();
+                  xmlDoc = parser.parseFromString(res,"application/xml")
+                  // console.log("house INFO")
+                  // console.log("zillow")
+                  // console.log(xmlDoc)
+                  let homeWebPage = xmlDoc.getElementsByTagName("homedetails")[0].childNodes[0].nodeValue
+                  // console.log(homeWebPage)
+                  let amount = parseFloat(xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue)
+                  let street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue
+                  let zipcode = xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue
+                  let city = xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue
+                  let state = xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue
+                  let yearBuilt = xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue
+                  let bathrooms = xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue
+                  let bedrooms = xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue
+                  // Getting all of the home data packaging it up and posting it up to my database
+                  const homeData ={amount, street, city, state, zipcode, bathrooms, bedrooms, yearBuilt, homeWebPage}
+                  const options = {
+                    method: "post",
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(homeData)
+                  };
+                  fetch('/saveHouse', options)
+                  .then(res => res.json())
+                  .then(res => {
+                    console.log(res)
+                    window.location.reload()
+                    // document.querySelector('.exampleHomeStreet').innerHTML = res.street + " "
+                    // document.querySelector('.exampleHomeCity').innerHTML = res.city + " "
+                    // document.querySelector('.exampleHomeState').innerHTML = res.state + " "
+                    // document.querySelector('.exampleHomeZipcode').innerHTML = res.zipcode
+                    // document.querySelector('.exampleHomeBathrooms').innerHTML = res.bathrooms
+                    // document.querySelector('.exampleHomeBedrooms').innerHTML = res.bedrooms
+                    // document.querySelector('.exampleHomeYearbuilt').innerHTML = res.yearBuilt
+                    // let webSite = res.homeWebPage
+                    // document.querySelector(".clickToGetMoreInfoOnHome").href = `${res.homeWebPage}`;
+                  });
+                })
+
         })
       }
     }
@@ -151,7 +189,7 @@ Array.from(trash).forEach(function(element) {
     //     alert("sorry, there are no results for your search")
     // });
   })
-})()
+})
 
 
 
