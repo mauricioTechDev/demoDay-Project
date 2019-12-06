@@ -12,13 +12,17 @@ module.exports = function(app, passport, db) {
       let uId = req.user._id
         db.collection('userInfo').find({createdBy: uId}).toArray((err, userInfo) => {
           if (err) return console.log(err)
+          // console.log("LOOK AT THIS"+userInfo.income);
           db.collection('saveHomeList').find({createdBy: uId}).toArray((err, homes) => {
             if (err) return console.log(err)
-            console.log(userInfo);
-            console.log(homes);
+            // console.log(homes);
             for(const home of homes) {
               home.amount = parseFloat(home.amount);
               console.table(home)
+            }
+            console.table(userInfo);
+            for(const user of userInfo) {
+              user.income = parseFloat(user.income);
             }
             res.render('profile.ejs', {
               user : req.user,
@@ -77,9 +81,7 @@ module.exports = function(app, passport, db) {
           commentArea: req.body.commentArea,
           name: req.body.name,
           email: req.user.local.email
-          // fireUp: 0,
-          // email: req.session.passport.user.local.email,
-          // createdBy: req.user.email,
+
         }, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
@@ -96,11 +98,11 @@ module.exports = function(app, passport, db) {
        $set: {
          income: req.body.income,
          name: req.body.name,
-         interestedInTheCityOf: req.body.interestedInTheCityOf,
+         // interestedInTheCityOf: req.body.interestedInTheCityOf,
          createdBy: req.user._id
        }
      },
-     { new: true,  upsert: true },
+     { new: false, upsert: true },
      (err, result) => {
        if (err) {
          console.log("err", err);
@@ -133,7 +135,8 @@ module.exports = function(app, passport, db) {
   // SAVING THE FOUND address
   app.post('/saveHouse', (req, res) => {
     // console.log("Home Request")
-    // console.log(req.body)
+    console.log(req.body)
+    console.log("hi world"+req.user.local.email)
     db.collection('saveHomeList').save(
       {
         amount: req.body.amount,
@@ -207,13 +210,15 @@ module.exports = function(app, passport, db) {
     //     res.send(result)
     //   })
     // })
-
+// DELETE THE USER INFO ON THE BOARD
     app.delete('/messages', (req, res) => {
-      db.collection('userInfo').findOneAndDelete({income: req.body.income, race: req.body.race, name: req.body.name}, (err, result) => {
+      db.collection('userInfo').findOneAndDelete({income: req.body.income, name: req.body.name}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
     })
+
+    // HERE IS TO DELETE A HOME
     app.delete('/deleteHome', (req, res) => {
       // console.log(req.body.title, req.body.commentArea)
       console.log('hello');
@@ -234,6 +239,7 @@ module.exports = function(app, passport, db) {
         res.send('Message deleted!')
       })
     })
+    // DELETE THE MESAGES FROM THE PUCLIC BOARD
     app.delete('/deleteShareYourThoughts', (req, res) => {
       console.log(req.body.title, req.body.commentArea)
       db.collection('shareYourThoughts').findOneAndDelete({title: req.body.title, commentArea: req.body.commentArea}, (err, result) => {

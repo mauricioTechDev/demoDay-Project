@@ -23,7 +23,7 @@ Array.from(edit).forEach(function(element) {
       })
     }).then(function(response) {
       console.log(response);
-      window.location.reload()
+      // window.location.reload()
     });
   });
 });
@@ -33,8 +33,9 @@ Array.from(trash).forEach(function(element) {
   // console.log(ul)
       element.addEventListener('click', function(){
         const name = this.parentNode.childNodes[5].innerText
+        console.log(name)
         const income = this.parentNode.childNodes[9].innerText
-        // console.log(income)
+        console.log(income)
         const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
         // console.log(interestedInTheCityOf)
         fetch('messages', {
@@ -45,7 +46,7 @@ Array.from(trash).forEach(function(element) {
           body: JSON.stringify({
             'name': name,
             'income': income,
-            'interestedInTheCityOf': interestedInTheCityOf
+            // 'interestedInTheCityOf': interestedInTheCityOf
           })
         }).then(function (response) {
           window.location.reload()

@@ -158,7 +158,7 @@ https://templatemo.com/tm-516-known
                  <span>(only visible to you)</span>
                  <input type="number" placeholder="annual income" name="income">
                </li>
-               <li>
+               <!-- <li>
                  <span class="userInfoInputArea">What area are you intereted in?</span>
                  <select class="" name="interestedInTheCityOf">
                    <option value="South Dorchester">South Dorchester</option>
@@ -184,7 +184,7 @@ https://templatemo.com/tm-516-known
                    <option value="Chinatown">Chinatown</option>
                    <option value="Downtown">Downtown</option>
                  </select>
-               </li>
+               </li> -->
                <li>
                  <button id="pushForHomes" class="submitForm" type="submit">Submit</button>
                </li>
@@ -400,24 +400,27 @@ https://templatemo.com/tm-516-known
 
                  <section>
                    <ul class="homeList" >
-                     <% for(var i=0; i<homes.length; i++) {%>
-                       <% if(homes[i].amount <= 600000) { %>
-                          <li>
-                             <h3 class="introduceHome">Home Address</h3>
-                             <span class="exampleHomeStreet"><%= homes[i].street %></span>
-                             <span class="exampleHomeCity"><%= homes[i].city %></span>
-                             <span class="exampleHomeState"><%= homes[i].state %></span>
-                             <span class="exampleHomeZipcode"><%= homes[i].zipcode %></span>
-                             <h3 class="homePrice">Price: <span class="homePrice"><%= homes[i].amount %></span></h3>
-                             <h3 class="homeRoomInfo">Bathrooms: <span class="exampleHomeBathrooms"><%= homes[i].bathrooms %></span></h3>
-                             <h3 class="homeRoomInfo">Bedrooms: <span class="exampleHomeBedrooms"><%= homes[i].bedrooms %></span></h3>
-                             <h3 class="homeRoomInfo">Year Built: <span class="exampleHomeYearbuilt"><%= homes[i].zipcode %></span> </h3>
-                             <a class="clickToGetMoreInfoOnHome" href=" " target="_blank" rel="noopener noreferrer">Click For More Innfo</a>
-                             <p class="save">SAVE</p>
-                             <p class="deleteHome">DELETE</p>
-                         </li>
+
+                      <% for(var i=0; i<homes.length; i++) { %>
+                        <% if(userInfo.length > 0) { %>
+                          <% if(homes[i].amount <= userInfo[0].income) { %>
+                             <li>
+                                <h3 class="introduceHome">Home Address</h3>
+                                <span class="exampleHomeStreet"><%= homes[i].street %></span>
+                                <span class="exampleHomeCity"><%= homes[i].city %></span>
+                                <span class="exampleHomeState"><%= homes[i].state %></span>
+                                <span class="exampleHomeZipcode"><%= homes[i].zipcode %></span>
+                                <h3 class="homePrice">Price: <span class="homePrice"><%= homes[i].amount %></span></h3>
+                                <h3 class="homeRoomInfo">Bathrooms: <span class="exampleHomeBathrooms"><%= homes[i].bathrooms %></span></h3>
+                                <h3 class="homeRoomInfo">Bedrooms: <span class="exampleHomeBedrooms"><%= homes[i].bedrooms %></span></h3>
+                                <h3 class="homeRoomInfo">Year Built: <span class="exampleHomeYearbuilt"><%= homes[i].zipcode %></span> </h3>
+                                <a class="clickToGetMoreInfoOnHome" href=" " target="_blank" rel="noopener noreferrer">Click For More Innfo</a>
+                                <p class="save">SAVE</p>
+                                <p class="deleteHome">DELETE</p>
+                            </li>
+                            <%}%>
+                          <%}%>
                        <%}%>
-                      <%}%>
                      </ul>
                  </section>
 
