@@ -1,3 +1,5 @@
+const ObjectId = require('mongodb').ObjectId;
+
 module.exports = function(app, passport, db) {
 
 // normal routes ===============================================================
@@ -94,7 +96,6 @@ module.exports = function(app, passport, db) {
         {
           title: req.body.title,
           commentArea: req.body.commentArea,
-          name: req.body.name,
           email: req.user.local.email
 
         }, (err, result) => {
@@ -235,22 +236,6 @@ module.exports = function(app, passport, db) {
       })
     })
 
-
-    // NOT NEEDED RIGHT NOW
-    // app.put('/messages', (req, res) => {
-    //   db.collection('userInfo')
-    //   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    //     $set: {
-    //       thumbUp:req.body.thumbUp + 1
-    //     }
-    //   }, {
-    //     sort: {_id: -1},
-    //     upsert: true
-    //   }, (err, result) => {
-    //     if (err) return res.send(err)
-    //     res.send(result)
-    //   })
-    // })
 // DELETE THE USER INFO ON THE BOARD
     app.delete('/messages', (req, res) => {
       db.collection('userInfo').findOneAndDelete({income: req.body.income, name: req.body.name}, (err, result) => {
@@ -281,13 +266,51 @@ module.exports = function(app, passport, db) {
       })
     })
     // DELETE THE MESAGES FROM THE PUCLIC BOARD
-    app.delete('/deleteShareYourThoughts', (req, res) => {
-      console.log(req.body.title, req.body.commentArea)
-      db.collection('shareYourThoughts').findOneAndDelete({title: req.body.title, commentArea: req.body.commentArea}, (err, result) => {
-        if (err) return res.send(500, err)
-        res.send('Message deleted!')
-      })
-    })
+    // app.delete('/deleteShareYourThoughts', (req, res) => {
+    //   console.log(req.body.title, req.body.commentArea)
+    //   console.log(res)
+    //     if(res.email === req.user.local.email){
+    //   db.collection('shareYourThoughts').findOneAndDelete({title: req.body.title, commentArea: req.body.commentArea}, (err, result) => {
+    //     if (err) return res.send(500, err)
+    //     res.send('Message deleted!')
+    //   })
+    //     }
+    // })
+
+    // DELETE INDIVIDUAL POST FROM PUBLIC BOARD
+    app.delete('/shareYourThoughts', (req, res) => {
+      console.log("hi world"+req.user.local.email)
+      if(req.body.email === req.user.local.email) {
+        console.log(req.body.title);
+        console.log(req.body.commentArea);
+        db.collection('shareYourThoughts').deleteOne({email: req.body.email, title: req.body.title}, (err, result) => {
+          console.log('deleted from database');
+        });
+        // db.collection('shareYourThoughts').deleteOne({ $and: [{title: req.body.title}, {commentArea: req.body.commentArea}]}, (err, result) => {
+        //   console.log('deleted from database')
+        // });
+      }
+        //res.redirect('/shareYourThoughts')
+    });
+
+
+
+
+
+
+
+
+    // db.collection('shareYourThoughts').find(
+    //   {
+    //     title: req.body.title,
+    //     commentArea: req.body.commentArea,
+    //     email: req.user.local.email
+    //   }, (err, result) => {
+    //     console.log("this email"+req.body.email)
+    //
+    //   if (err) return console.log(err)
+
+
     // DELETE HOMES FROM FAVORITES LIST
     app.delete('/deleteFavoriteHomes', (req, res) => {
       // console.log(req.body.title, req.body.commentArea)
@@ -309,6 +332,7 @@ module.exports = function(app, passport, db) {
         res.send('Message deleted!')
       })
     })
+
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
