@@ -259,7 +259,7 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    // HERE IS TO DELETE A HOME
+    // HERE IS TO DELETE A HOME FROM PROFILE PAGE
     app.delete('/deleteHome', (req, res) => {
       // console.log(req.body.title, req.body.commentArea)
       console.log('hello');
@@ -284,6 +284,27 @@ module.exports = function(app, passport, db) {
     app.delete('/deleteShareYourThoughts', (req, res) => {
       console.log(req.body.title, req.body.commentArea)
       db.collection('shareYourThoughts').findOneAndDelete({title: req.body.title, commentArea: req.body.commentArea}, (err, result) => {
+        if (err) return res.send(500, err)
+        res.send('Message deleted!')
+      })
+    })
+    // DELETE HOMES FROM FAVORITES LIST
+    app.delete('/deleteFavoriteHomes', (req, res) => {
+      // console.log(req.body.title, req.body.commentArea)
+      console.log('hello');
+      console.log(req.body.street);
+      console.log(req.body.city);
+      console.log(req.body.zipcode);
+      db.collection('favoriteHomes').findOneAndDelete({
+      street: req.body.street,
+      city: req.body.city,
+      // state: req.body.state,
+      zipcode: req.body.zipcode
+      // bathrooms: req.body.bathrooms,
+      // bedrooms: req.body.bedrooms,
+      // yearBuilt: req.body.yearBuilt,
+      // homeWebPage: req.body.homeWebPage,
+      }, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
