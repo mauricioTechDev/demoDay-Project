@@ -1,4 +1,34 @@
-<%- include('header'); -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>myDomus</title>
+<!--
+
+Known Template
+
+https://templatemo.com/tm-516-known
+
+-->
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="bootstrap.min.css">
+     <link rel="stylesheet" href="font-awesome.min.css">
+     <link rel="stylesheet" href="owl.carousel.css">
+     <link rel="stylesheet" href="owl.theme.default.min.css">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="favoriteHomes.css">
+     <link rel="stylesheet" href="templatemo-style.css">
+
+
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
 
 
@@ -98,48 +128,42 @@
 
      <!-- FEATURE -->
      <section id="feature">
+       <div class="container">
+       <div class="row">
 
-          <div class="container">
+         <% for(var i=0; i<favoriteHomes.length; i++) {%>
+            <div class="col-md-4 col-sm-4">
+                 <div id="thoughtBox" class="feature-thumb">
+                   <ul class="homeList" >
 
-
-            <% if (user.local.email) { %>
-              <section class="commentInputSection">
-                <form action="/shareYourThoughts" autocomplete="off" method="POST">
-                   <ul>
                     <li>
-                      <p class="titleOfComment">Title</p>
-                      <input required="This field is required" type="text" placeholder="Title" name="title">
-                    </li>
-                    <li>
-                      <p class="commentArea">Comment Area</p>
-                      <textarea rows="10" cols="100" type="text" placeholder="Click here to share what you have experienced and/or would like to share with others 👋"name="commentArea"></textarea>
-                    </li>
-                     <li>
-                      <button class="submitForm" type="submit">Submit</button>
-                    </li>
+                       <h3 class="introduceHome">Home Address:</h3>
+
+
+                       <h3 class="exampleHomeStreet"><%= favoriteHomes[i].street %></h3>
+                       <h3 class="exampleHomeCity"><%= favoriteHomes[i].city %></h3>
+                       <h3 class="exampleHomeState"><%= favoriteHomes[i].state %></h3>
+                       <h3 class="exampleHomeZipcode"><%= favoriteHomes[i].zipcode %></h3>
+
+
+
+                      <h3 class="homePrice"><%= favoriteHomes[i].amount %></h3>
+                      <h3 class="exampleHomeBathrooms"><%= favoriteHomes[i].bathrooms %></h3>
+                      <h3 class="exampleHomeBedrooms"><%= favoriteHomes[i].bedrooms %></h3>
+                      <h3 class="exampleHomeYearbuilt"><%= favoriteHomes[i].yearBuilt %></h3>
+                      <a class="clickToGetMoreInfoOnHome" href="<%= favoriteHomes[i].homeWebPage %>" target="_blank" rel="noopener noreferrer">Click For More Innfo</a>
+                      <p id="save">SAVE</p>
+                      <p class="deleteHome">DELETE</p>
+                   </li>
                   </ul>
-                </form>
-              </section>
-            <% } %>
+                 </div>
+            </div>
+            <%}%>
 
-               <div class="row">
-
-                 <% for(var i=0; i<shareYourThoughts.length; i++) {%>
-                    <div class="col-md-4 col-sm-4">
-                         <div id="thoughtBox" class="feature-thumb">
-                              <h3 class="shareYourThoughtsTitle"><%= shareYourThoughts[i].title %></h3>
-                              <p class="shareYourThoughtsComment"><%= shareYourThoughts[i].commentArea %></p>
-                              <p class="shareYourThoughtsEmail"><%=shareYourThoughts[i].email%></p>
-                              <!-- FIND OUT WHY THE FIRE DOS NOT ADD UP -->
-                              <!-- <p class="fireUp"><%= shareYourThoughts[i].fireUp %></p> -->
-                              <!-- <p class="fireUpSymbol">🔥</p> -->
-                              <p class="trash">🗑️</p>
-                         </div>
-                    </div>
-                    <%}%>
-
-               </div>
           </div>
+        </div>
+
+
      </section>
 
 
@@ -445,8 +469,16 @@
      <section id="testimonial">
           <div class="container">
                <div class="row">
+                 <section>
 
-                    <div class="col-md-12 col-sm-12">
+                 </section>
+
+
+
+
+
+
+                    <!-- <div class="col-md-12 col-sm-12">
                          <div class="section-title">
                               <h2>Student Reviews <small>from around the world</small></h2>
                          </div>
@@ -530,7 +562,7 @@
 
                          </div>
 
-               </div>
+               </div> -->
           </div>
      </section>
 
@@ -540,4 +572,86 @@
 
 
      <!-- FOOTER -->
-     <%- include('footer'); -%>
+     <footer id="footer">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Headquarter</h2>
+                              </div>
+                              <address>
+                                   <p>1800 dapibus a tortor pretium,<br> Integer nisl dui, ABC 12000</p>
+                              </address>
+
+                              <ul class="social-icon">
+                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                   <li><a href="#" class="fa fa-twitter"></a></li>
+                                   <li><a href="#" class="fa fa-instagram"></a></li>
+                              </ul>
+
+                              <div class="copyright-text">
+                                   <p>Copyright &copy; 2019 Company Name</p>
+
+                                   <p>Design: TemplateMo</p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Contact Info</h2>
+                              </div>
+                              <address>
+                                   <p>+65 2244 1100, +66 1800 1100</p>
+                                   <p><a href="mailto:youremail.co">hello@youremail.co</a></p>
+                              </address>
+
+                              <div class="footer_menu">
+                                   <h2>Quick Links</h2>
+                                   <ul>
+                                        <li><a href="#">Career</a></li>
+                                        <li><a href="#">Investor</a></li>
+                                        <li><a href="#">Terms & Conditions</a></li>
+                                        <li><a href="#">Refund Policy</a></li>
+                                   </ul>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                         <div class="footer-info newsletter-form">
+                              <div class="section-title">
+                                   <h2>Newsletter Signup</h2>
+                              </div>
+                              <div>
+                                   <div class="form-group">
+                                        <form action="#" method="get">
+                                             <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email" required="">
+                                             <input type="submit" class="form-control" name="submit" id="form-submit" value="Send me">
+                                        </form>
+                                        <span><sup>*</sup> Please note - we do not spam your email.</span>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+
+     <!-- SCRIPTS -->
+     <script src="shareYourThoughts.js"></script>
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/owl.carousel.min.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/custom.js"></script>
+     <script src="favoriteHomes.js">
+
+
+     </body>
+     </html>

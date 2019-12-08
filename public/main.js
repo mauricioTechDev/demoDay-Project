@@ -66,7 +66,7 @@ Array.from(deleteHome).forEach(function(element) {
         const bedrooms = this.parentNode.childNodes[13].innerText
         const yearBuilt = this.parentNode.childNodes[15].innerText
 
-        console.log(street, city, state, zipcode, bathrooms, bedrooms, yearBuilt)
+        // console.log(street, city, state, zipcode, bathrooms, bedrooms, yearBuilt)
 
         // console.log(name)
         // console.log(income)
@@ -92,9 +92,17 @@ Array.from(deleteHome).forEach(function(element) {
       });
 });
 
+let street = ''
+let city = ''
+let state = ''
+let zipcode = ''
+let amount = ''
+let yearBuilt = ''
+let bathrooms = ''
+let bedrooms = ''
+let homeWebPage = ''
 
 let btn = document.getElementById("pushForHomes")
-
 //  CORS proxy added in to have access to API. CORS Anywhere is a NodeJS proxy which adds CORS headers to the proxied request.
 btn.addEventListener("click", ()=>{
   console.log("I AM CLICKED")
@@ -148,14 +156,14 @@ btn.addEventListener("click", ()=>{
                   // console.log(xmlDoc)
                   let homeWebPage = xmlDoc.getElementsByTagName("homedetails")[0].childNodes[0].nodeValue
                   // console.log(homeWebPage)
-                  let amount = parseFloat(xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue)
-                  let street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue
-                  let zipcode = xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue
-                  let city = xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue
-                  let state = xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue
-                  let yearBuilt = xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue
-                  let bathrooms = xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue
-                  let bedrooms = xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue
+                   amount = parseFloat(xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue)
+                   street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue
+                   zipcode = xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue
+                   city = xmlDoc.getElementsByTagName("city")[0].childNodes[0].nodeValue
+                   state = xmlDoc.getElementsByTagName("state")[0].childNodes[0].nodeValue
+                   yearBuilt = xmlDoc.getElementsByTagName("yearBuilt")[0].childNodes[0].nodeValue
+                   bathrooms = xmlDoc.getElementsByTagName("bathrooms")[0].childNodes[0].nodeValue
+                   bedrooms = xmlDoc.getElementsByTagName("bedrooms")[0].childNodes[0].nodeValue
                   // Getting all of the home data packaging it up and posting it up to my database
                   const homeData ={amount, street, city, state, zipcode, bathrooms, bedrooms, yearBuilt, homeWebPage}
                   const options = {
@@ -191,6 +199,59 @@ btn.addEventListener("click", ()=>{
     // });
   })
 })
+
+
+
+// SAVED HOME TO FAVORTIES list
+let save = document.getElementsByClassName("save");
+Array.from(save).forEach(function(element) {
+element.addEventListener("click", function() {
+  const street = this.parentNode.childNodes[3].innerText
+  console.log(street)
+  const city = this.parentNode.childNodes[5].innerText
+  console.log(city)
+  const state = this.parentNode.childNodes[7].innerText
+  console.log(state)
+  const zipcode = this.parentNode.childNodes[9].innerText
+  console.log(zipcode)
+  // const amount = this.parentNode.childNodes[10].innerText
+  const amount = this.parentNode.childNodes[11].innerText
+  console.log(amount)
+  const bathrooms = this.parentNode.childNodes[13].innerText
+  console.log(bathrooms);
+  const bedrooms = this.parentNode.childNodes[15].innerText
+  console.log(bedrooms)
+  const yearBuilt = this.parentNode.childNodes[17].innerText
+  console.log(yearBuilt)
+  const homeWebPage = this.parentNode.childNodes[19].innerText
+  console.log(homeWebPage)
+  fetch('favoriteHomes', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'street': street,
+          'city': city,
+          'state': state,
+          'zipcode': zipcode,
+          'amount': amount,
+          'bathrooms': bathrooms,
+          'bedrooms':bedrooms,
+          'yearBuilt': yearBuilt,
+          'homeWebPage': homeWebPage
+
+        })
+      })
+      .then(data => {
+        console.log(data)
+        // window.location.reload(true)
+    })
+})
+})
+
+
+
 
 
 

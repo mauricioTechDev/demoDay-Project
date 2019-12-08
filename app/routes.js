@@ -48,6 +48,21 @@ module.exports = function(app, passport, db) {
         })
     });
 
+    // FAVORITE HOMES SECTION ================================
+    app.get('/favoriteHomes', isLoggedIn, function(req, res) {
+      let uId = req.user._id
+        db.collection('favoriteHomes').find({createdBy: uId}).toArray((err, favoriteHomes) => {
+          // console.log(result)
+          // console.log(req.user)
+          if (err) return console.log(err)
+          res.render('favoriteHomes.ejs', {
+            user : req.user,
+            favoriteHomes: favoriteHomes
+          })
+        })
+    });
+
+
 
 
     // LOGOUT ==============================
@@ -56,14 +71,14 @@ module.exports = function(app, passport, db) {
         res.redirect('/');
     });
 
-// message board routes ===============================================================
+// Profile routes ===============================================================
 
     app.post('/userInfoIntake', (req, res) => {
       db.collection('userInfo').save(
         {
           income: req.body.income,
           name: req.body.name,
-          interestedInTheCityOf: req.body.interestedInTheCityOf,
+          // interestedInTheCityOf: req.body.interestedInTheCityOf,
           createdBy: req.user._id,
         }, (err, result) => {
         if (err) return console.log(err)
@@ -71,7 +86,7 @@ module.exports = function(app, passport, db) {
         res.redirect('/profile')
       })
     })
-
+// Share Your Throughts Page
     app.post('/shareYourThoughts', (req, res) => {
 
       console.log("hi world"+req.user.local.email)
@@ -88,6 +103,31 @@ module.exports = function(app, passport, db) {
         res.redirect('/shareYourThoughts')
       })
     })
+
+    // Favorite Homes
+    app.post('/favoriteHomes', (req, res) => {
+      console.log(req.body)
+      db.collection('favoriteHomes').save(
+        {
+          amount: req.body.amount,
+          street: req.body.street,
+          city: req.body.city,
+          state: req.body.state,
+          zipcode: req.body.zipcode,
+          bathrooms: req.body.bathrooms,
+          bedrooms: req.body.bedrooms,
+          yearBuilt: req.body.yearBuilt,
+          homeWebPage: req.body.homeWebPage,
+          createdBy: req.user._id
+        }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/profile')
+      })
+    })
+
+
+
 
 // UPDATE THE USER PROFILE
     app.put("/updateUser", (req, res) => {
@@ -163,6 +203,7 @@ module.exports = function(app, passport, db) {
          bedrooms: req.body.bedrooms,
          yearBuilt: req.body.yearBuilt,
          homeWebPage: req.body.homeWebPage,
+         createdBy: req.user._id
       })
     })
   })
