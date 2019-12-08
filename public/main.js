@@ -92,15 +92,6 @@ Array.from(deleteHome).forEach(function(element) {
       });
 });
 
-// let street = ''
-// let city = ''
-// let state = ''
-// let zipcode = ''
-// let amount = ''
-// let yearBuilt = ''
-// let bathrooms = ''
-// let bedrooms = ''
-// let homeWebPage = ''
 
 let btn = document.getElementById("pushForHomes")
 //  CORS proxy added in to have access to API. CORS Anywhere is a NodeJS proxy which adds CORS headers to the proxied request.
@@ -245,7 +236,7 @@ element.addEventListener("click", function() {
       })
       .then(data => {
         console.log(data)
-        // window.location.reload(true)
+        window.location.reload(true)
     })
 })
 })

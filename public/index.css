@@ -1,0 +1,18 @@
+h1{
+  color: white;
+  font-size: 80px;
+    line-height: normal;
+}
+h2{
+  text-align: center;
+}
+footer{
+  background: #3f51b5;
+}
+.headerComment{
+  color: white;
+  font-size: 36px;
+}
+.footer-info{
+  text-align: center;
+}
