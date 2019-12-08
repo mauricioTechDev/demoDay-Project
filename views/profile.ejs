@@ -220,7 +220,8 @@ https://templatemo.com/tm-516-known
      <section id="courses">
           <div class="container">
                <div class="row">
-                 <h2 class="averageHomePriceTitle">Explore and save some homes below</h2>
+                 <h2 class="averageHomePriceTitle">Explore and save homes below 💫</h2>
+                 <h2 class="averageHomePriceTitle">Then headover to our "Share Your Thoughts" page. Where you can connect with other activist.</h2>
                </div>
           </div>
      </section>
@@ -237,7 +238,7 @@ https://templatemo.com/tm-516-known
                       <% for(var i=0; i<homes.length; i++) { %>
                         <% if(userInfo.length > 0) { %>
                           <% if(homes[i].amount <= userInfo[0].income) { %>
-                             <li>
+                             <li class="lookedUpHomes">
                                 <h3 class="introduceHome">Home Address</h3>
                                 <span class="exampleHomeStreet"><%= homes[i].street %></span>
                                 <span class="exampleHomeCity"><%= homes[i].city %></span>
@@ -248,6 +249,7 @@ https://templatemo.com/tm-516-known
                                 <h3 class="homeRoomInfo">Bedrooms: <span class="exampleHomeBedrooms"><%= homes[i].bedrooms %></span></h3>
                                 <h3 class="homeRoomInfo">Year Built: <span class="exampleHomeYearbuilt"><%= homes[i].yearBuilt %></span> </h3>
                                 <a class="clickToGetMoreInfoOnHome" href="<%= homes[i].homeWebPage %>" target="_blank" rel="noopener noreferrer"><%= homes[i].homeWebPage %></a>
+                                <p class="save">SAVE</p>
                                 <p class="deleteHome">DELETE</p>
                             </li>
                             <%}%>
@@ -260,7 +262,7 @@ https://templatemo.com/tm-516-known
 
 
      <!-- CONTACT -->
-     <section id="contact">
+     <!-- <section id="contact">
           <div class="container">
                <div class="row">
 
@@ -293,7 +295,7 @@ https://templatemo.com/tm-516-known
 
                </div>
           </div>
-     </section>
+     </section> -->
 
 
      <!-- FOOTER -->
@@ -307,13 +309,13 @@ https://templatemo.com/tm-516-known
                                    <h2>Headquarter</h2>
                               </div>
                               <address>
-                                   <p>1800 dapibus a tortor pretium,<br> Integer nisl dui, ABC 12000</p>
+                                   <p>50 Milk Street,<br> Boston, MA 02109</p>
                               </address>
 
                               <ul class="social-icon">
-                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                                   <li><a href="#" class="fa fa-twitter"></a></li>
-                                   <li><a href="#" class="fa fa-instagram"></a></li>
+                                   <li><a href="https://www.linkedin.com/in/mauriciotechdev/" class="fa fa-linkedin" attr="facebook icon" target="_blank" rel="noopener noreferrer" ></a></li>
+                                   <li><a href="https://twitter.com/mauricioTechDev" target="_blank" rel="noopener noreferrer" class="fa fa-twitter"></a></li>
+                                   <!-- <li><a href="#" class="fa fa-instagram"></a></li> -->
                               </ul>
 
                               <div class="copyright-text">
@@ -330,23 +332,22 @@ https://templatemo.com/tm-516-known
                                    <h2>Contact Info</h2>
                               </div>
                               <address>
-                                   <p>+65 2244 1100, +66 1800 1100</p>
-                                   <p><a href="mailto:youremail.co">hello@youremail.co</a></p>
+                                   <p><a href="mailto:mauricioacosta.dev@gmail.com">mauricioacosta.dev@gmail.com</a></p>
                               </address>
 
-                              <div class="footer_menu">
+                              <!-- <div class="footer_menu">
                                    <h2>Quick Links</h2>
                                    <ul>
-                                        <li><a href="#">Career</a></li>
+                                        <li><a href="#home">Top</a></li>
                                         <li><a href="#">Investor</a></li>
                                         <li><a href="#">Terms & Conditions</a></li>
                                         <li><a href="#">Refund Policy</a></li>
                                    </ul>
-                              </div>
+                              </div> -->
                          </div>
                     </div>
 
-                    <div class="col-md-4 col-sm-12">
+                    <!-- <div class="col-md-4 col-sm-12">
                          <div class="footer-info newsletter-form">
                               <div class="section-title">
                                    <h2>Newsletter Signup</h2>
@@ -361,7 +362,7 @@ https://templatemo.com/tm-516-known
                                    </div>
                               </div>
                          </div>
-                    </div>
+                    </div> -->
 
                </div>
           </div>
@@ -374,7 +375,8 @@ https://templatemo.com/tm-516-known
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/smoothscroll.js"></script>
      <script src="js/custom.js"></script>
-     <script src="main.js"></script>
+     <script src="main.js">
+     </script>
 
 </body>
 </html>

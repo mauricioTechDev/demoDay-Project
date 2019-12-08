@@ -92,15 +92,15 @@ Array.from(deleteHome).forEach(function(element) {
       });
 });
 
-let street = ''
-let city = ''
-let state = ''
-let zipcode = ''
-let amount = ''
-let yearBuilt = ''
-let bathrooms = ''
-let bedrooms = ''
-let homeWebPage = ''
+// let street = ''
+// let city = ''
+// let state = ''
+// let zipcode = ''
+// let amount = ''
+// let yearBuilt = ''
+// let bathrooms = ''
+// let bedrooms = ''
+// let homeWebPage = ''
 
 let btn = document.getElementById("pushForHomes")
 //  CORS proxy added in to have access to API. CORS Anywhere is a NodeJS proxy which adds CORS headers to the proxied request.
@@ -115,10 +115,10 @@ btn.addEventListener("click", ()=>{
     // Once you have created a parser object, you can parse XML from a string using the parseFromString() method:
     xmlDoc = parser.parseFromString(res,"application/xml")
     // console.log("zillow")
-    // console.log(xmlDoc)
-    // console.log(xmlDoc.getElementsByTagName("zindex")[0].innerHTML)
+    console.log(xmlDoc)
+    console.log(xmlDoc.getElementsByTagName("zindex")[0].innerHTML)
     let choicePrice = document.querySelector(".userInfoIncome").innerText
-    // console.log(choicePrice)
+    console.log(choicePrice)
     // let choiceOfCityUserIsInnterestedIn = document.querySelector(".cityOfChoice").innerText
     var latitude;
     var longitude;
