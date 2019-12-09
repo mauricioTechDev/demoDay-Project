@@ -155,24 +155,6 @@ module.exports = function(app, passport, db) {
    );
   });
 
-
-
-// UPDATE FIRE RANK
-  // app.put('/shareYourThoughts', (req, res) => {
-  //     db.collection('shareYourThoughts')
-  //     .findOneAndUpdate({title: req.body.title, commentArea: req.body.commentArea, createdBy: req.user._id}, {
-  //       $set: {
-  //         fireUp:req.body.fireUp + 1
-  //       }
-  //     }, {
-  //       // sort: {_id: -1},
-  //       upsert: false
-  //     }, (err, result) => {
-  //       if (err) return res.send(err)
-  //       res.send(result)
-  //     })
-  //   })
-
   // SAVING THE FOUND address
   app.post('/saveHouse', (req, res) => {
     // console.log("Home Request")
@@ -292,14 +274,6 @@ module.exports = function(app, passport, db) {
       }
         //res.redirect('/shareYourThoughts')
     });
-
-
-
-
-
-
-
-
     // db.collection('shareYourThoughts').find(
     //   {
     //     title: req.body.title,
