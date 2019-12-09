@@ -91,13 +91,13 @@ Array.from(deleteHome).forEach(function(element) {
         })
       });
 });
-
+const api_key_zillow = 'X1-ZWz17iidor3ax7_2xcn2'
 
 let btn = document.getElementById("pushForHomes")
 //  CORS proxy added in to have access to API. CORS Anywhere is a NodeJS proxy which adds CORS headers to the proxied request.
 btn.addEventListener("click", ()=>{
   console.log("I AM CLICKED")
-  fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&state=ma&city=boston&childtype=neighborhood`)
+  fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=${api_key_zillow }&state=ma&city=boston&childtype=neighborhood`)
   .then(res => res.text())
   .then(res => {
     // console.log(res)
@@ -136,7 +136,7 @@ btn.addEventListener("click", ()=>{
           let state = arrayOfAddressExample.splice(0,1)
           // console.log(state)
           // document.querySelector('#rawAddress').textContent = rawAddress
-              fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=X1-ZWz17iidor3ax7_2xcn2&address=${address}&citystatezip=${city}${state}`)
+              fetch(`https://cors-anywhere.herokuapp.com/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${api_key_zillow }&address=${address}&citystatezip=${city}${state}`)
                 // SAVE THIS INFO TO THE DATABASE SO I CAN GET IT ON ANOTHER PAGE OR EVEN ON THE SAME PAGE ;>/
                 .then(res => res.text())
                 .then(res => {
@@ -273,7 +273,14 @@ if ("geolocation" in navigator) {
   .then(res => {
     // console.log(res)
     // MARKS USERS CURRENT LOCATION
-    const marker = L.marker([res.latitude, res.longitude]).addTo(mymap);
+    var sunFlower = L.icon({
+      iconUrl: 'images/PinClipart.com_rose-petals-clipart_441559.png',
+
+      iconSize:     [38, 95], // size of the icon
+      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
+    const marker = L.marker([res.latitude, res.longitude], {icon: sunFlower}).addTo(mymap);
     const markerPopUp = marker.bindPopup(`This is your current Location!`,{"width": "600"})
   });
 });
@@ -519,13 +526,3 @@ const seaportMarkerPopUp = seaportMarker.bindPopup(`<iframe id="cr-embed-14000US
 // }
 //
 // mymap.on('click', onMapClick);
-
-
-
-
-    var circle = L.circle([42.357, -71.07000], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(mymap);
