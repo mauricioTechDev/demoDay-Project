@@ -88,7 +88,7 @@ module.exports = function(app, passport, db) {
         res.redirect('/profile')
       })
     })
-// Share Your Throughts Page
+// Share Your Thoughts Page
     app.post('/shareYourThoughts', (req, res) => {
 
       console.log("hi world"+req.user.local.email)
@@ -126,8 +126,6 @@ module.exports = function(app, passport, db) {
         res.redirect('/profile')
       })
     })
-
-
 
 
 // UPDATE THE USER PROFILE
@@ -247,17 +245,6 @@ module.exports = function(app, passport, db) {
         res.send('Message deleted!')
       })
     })
-    // DELETE THE MESAGES FROM THE PUCLIC BOARD
-    // app.delete('/deleteShareYourThoughts', (req, res) => {
-    //   console.log(req.body.title, req.body.commentArea)
-    //   console.log(res)
-    //     if(res.email === req.user.local.email){
-    //   db.collection('shareYourThoughts').findOneAndDelete({title: req.body.title, commentArea: req.body.commentArea}, (err, result) => {
-    //     if (err) return res.send(500, err)
-    //     res.send('Message deleted!')
-    //   })
-    //     }
-    // })
 
     // DELETE INDIVIDUAL POST FROM PUBLIC BOARD
     app.delete('/shareYourThoughts', (req, res) => {
@@ -274,15 +261,6 @@ module.exports = function(app, passport, db) {
       }
         //res.redirect('/shareYourThoughts')
     });
-    // db.collection('shareYourThoughts').find(
-    //   {
-    //     title: req.body.title,
-    //     commentArea: req.body.commentArea,
-    //     email: req.user.local.email
-    //   }, (err, result) => {
-    //     console.log("this email"+req.body.email)
-    //
-    //   if (err) return console.log(err)
 
 
     // DELETE HOMES FROM FAVORITES LIST
