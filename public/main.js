@@ -35,7 +35,7 @@ Array.from(trash).forEach(function(element) {
         console.log(name)
         const income = this.parentNode.childNodes[9].innerText
         console.log(income)
-        const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
+        // const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
         // console.log(interestedInTheCityOf)
         fetch('messages', {
           method: 'delete',
@@ -52,7 +52,7 @@ Array.from(trash).forEach(function(element) {
         })
       });
 });
-// DELETE A HOME
+// DELETE A HOME FROM PROFILE
 Array.from(deleteHome).forEach(function(element) {
   let ul = document.getElementsByClassName("homeList")
   console.log(ul)
