@@ -144,7 +144,7 @@ module.exports = function(app, passport, db) {
          createdBy: req.user._id
        }
      },
-     { new: false, upsert: true },
+     { new: true, upsert: true },
      (err, result) => {
        if (err) {
          console.log("err", err);
@@ -258,11 +258,8 @@ module.exports = function(app, passport, db) {
         db.collection('shareYourThoughts').deleteOne({email: req.body.email, title: req.body.title}, (err, result) => {
           console.log('deleted from database');
         });
-        // db.collection('shareYourThoughts').deleteOne({ $and: [{title: req.body.title}, {commentArea: req.body.commentArea}]}, (err, result) => {
-        //   console.log('deleted from database')
-        // });
       }
-        //res.redirect('/shareYourThoughts')
+        res.redirect('/shareYourThoughts')
     });
 
 

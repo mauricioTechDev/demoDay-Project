@@ -1,9 +1,7 @@
 .welcomeMessage{
-  font-size: 16px;
+  font-size: 18px;
   margin: 8% 0% 4% 0%;
   font-family: unset;
-  font-family: 'Nunito', sans-serif;
-  color: #626262;;
 }
 
 .submitForm{

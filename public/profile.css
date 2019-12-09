@@ -33,6 +33,21 @@ li{
   font-family: inherit;
   line-height: 70px;
 }
+.userInputArea{
+  color: #474954;
+border-bottom-left-radius: 5px;
+  transition: 0.5s;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+    margin-left: 0px;
+    padding-top: 12px;
+    padding-right: 25px;
+    padding-bottom: 12px;
+    padding-left: 25px;
+    max-width: 100%;
+    width: 22%;
+}
 .courses{
   padding: 50px 0;
 }

@@ -4,7 +4,7 @@ var fireUpSymbol = document.getElementsByClassName('fireUpSymbol')
 
 Array.from(trash).forEach(function(element) {
   let ul = document.getElementById("thoughtBox")
-  console.log(ul)
+  // console.log(ul)
       element.addEventListener('click', function(){
         const title = this.parentNode.childNodes[1].innerText
         const commentArea = this.parentNode.childNodes[3].innerText

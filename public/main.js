@@ -8,9 +8,9 @@ Array.from(edit).forEach(function(element) {
     // console.log(edit);
     const name = this.parentNode.childNodes[5].innerText
     const income = this.parentNode.childNodes[9].innerText
-    const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
+    // const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
 
-    console.log(name, income, interestedInTheCityOf)
+    console.log(name, income)
     fetch("updateUser", {
       method: "put",
       headers: {
@@ -19,7 +19,6 @@ Array.from(edit).forEach(function(element) {
       body: JSON.stringify({
         'name': name,
         'income': income,
-        'interestedInTheCityOf': interestedInTheCityOf
       })
     }).then(function(response) {
       console.log(response);
@@ -92,7 +91,6 @@ Array.from(deleteHome).forEach(function(element) {
       });
 });
 const api_key_zillow = 'X1-ZWz17iidor3ax7_2xcn2'
-
 let btn = document.getElementById("pushForHomes")
 //  CORS proxy added in to have access to API. CORS Anywhere is a NodeJS proxy which adds CORS headers to the proxied request.
 btn.addEventListener("click", ()=>{
@@ -274,10 +272,10 @@ if ("geolocation" in navigator) {
     // console.log(res)
     // MARKS USERS CURRENT LOCATION
     var sunFlower = L.icon({
-      iconUrl: 'images/PinClipart.com_rose-petals-clipart_441559.png',
+      iconUrl: 'images/Map_symbol-pin.svg',
 
       iconSize:     [38, 95], // size of the icon
-      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      iconAnchor:   [10, 90], // point of the icon which will correspond to marker's location
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
     const marker = L.marker([res.latitude, res.longitude], {icon: sunFlower}).addTo(mymap);

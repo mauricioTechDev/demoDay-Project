@@ -126,12 +126,12 @@ https://templatemo.com/tm-516-known
              <ul>
                <li>
                  <span class="userInfoInputArea">Name: </span>
-                 <input required="This field is required" type="text" placeholder="name" name="name">
+                 <input class="userInputArea" required="This field is required" type="text" placeholder="name" name="name">
                </li>
                <li>
                  <span class="userInfoInputArea">Max Price of Home: </span>
                  <span>(min 530,000 max 999,999)</span>
-                 <input type="number" placeholder="annual income" name="income">
+                 <input class="userInputArea" type="number" placeholder="annual income" name="income">
                </li>
                <!-- <li>
                  <span class="userInfoInputArea">What area are you intereted in?</span>
@@ -177,8 +177,8 @@ https://templatemo.com/tm-516-known
                  <p contenteditable="true" class="userInfoName"><%= userInfo[i].name %></p>
                  <!-- <h3>User Average Income</h3> -->
                  <p contenteditable="true" class="userInfoIncome"><%= userInfo[i].income %></p>
-                 <p class="edit">CLICK TO UPDATE</p>
-                 <p class="trash">DELETE</p>
+                 <!-- <p class="edit">CLICK TO UPDATE</p> -->
+                 <p class="trash">DELETE(clears form and homes)</p>
              </li>
              <%}%>
            </ul>
