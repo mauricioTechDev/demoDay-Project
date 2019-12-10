@@ -257,9 +257,11 @@ module.exports = function(app, passport, db) {
         console.log(req.body.commentArea);
         db.collection('shareYourThoughts').deleteOne({email: req.body.email, title: req.body.title}, (err, result) => {
           console.log('deleted from database');
+          if (err) return res.send(500, err)
+          res.send('Message deleted!')
         });
       }
-        res.redirect('/shareYourThoughts')
+        // res.redirect('/shareYourThoughts')
     });
 
 
