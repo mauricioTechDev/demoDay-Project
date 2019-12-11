@@ -1,7 +1,9 @@
 # ✅ A Full Stack DEMO DAY CRUD application
-## myDomus is an application that allows people to make educated decisions about where to live.
+## myDomus is a Housing Activist application which gives users the resources they need to fuel their work and to connect and share with others.
 
- This application is currently in development.  As of now users are able to create and delete an account through the DOM in the application.  They are also able to enter in their personal information into their profile when they are logged in.  If they want to edit any information they simply click on it and hit the edit button.  
+Users are able to explore a map I made with Leaflet.js.  Which will give them a comparison between household income and race/ethnicity in Boston.  Users can than create profiles where they get custom homes according to max price.  
+
+If they want to edit any information they simply click on it and hit the edit button.  
 
  In the back end I am running an Express framework with Node.js.  For my database I am using mongodb.  The mongo database is receiving DOM input from user logins and saving them to the database.  If you want to try it out follow the step bellow.  There are a-lot of new and exciting features coming soon!! Engaging maps and tons of data for your hearts desire! 🚀
 
@@ -13,8 +15,11 @@
 - HTML5
 - CSS3
 - Javascript
+- Leaflet.JS
 - Node.js
 - Express
+- JSON API
+- XML API
 - Mongo DB
 
 ## Installation
