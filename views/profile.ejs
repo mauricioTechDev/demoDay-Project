@@ -124,7 +124,7 @@ https://templatemo.com/tm-516-known
 
      <!-- TEAM -->
      <section id="team">
-       <h2>It's simple. Create a virtual profile.  Recieve home prices based on the input.  Save the homes if you would like. Then delete the profile to start again.</h2>
+       <h2>It's simple. Create a virtual profile.  Recieve home prices based on the input.  Save the homes if you would like. Then clear the profile to make another.</h2>
        <% if (user.local.email) { %>
          <section class="questionSection">
            <form action="/userInfoIntake" autocomplete="off" method="POST">
@@ -156,8 +156,8 @@ https://templatemo.com/tm-516-known
                  <p contenteditable="true" class="userInfoName"><%= userInfo[i].name %></p>
                  <!-- <h3>User Average Income</h3> -->
                  <p contenteditable="true" class="userInfoIncome"><%= userInfo[i].income %></p>
-                 <!-- <p class="edit">CLICK TO UPDATE</p> -->
-                 <p class="trash">DELETE(clears form and homes)</p>
+                 <p class="edit">CLICK TO UPDATE</p>
+                 <p class="trash">CLEAR(clears form/homes to update)</p>
              </li>
              <%}%>
            </ul>

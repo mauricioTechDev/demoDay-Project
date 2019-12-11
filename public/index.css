@@ -16,3 +16,8 @@ footer{
 .footer-info{
   text-align: center;
 }
+.feature-thumb:hover {
+  -moz-box-shadow: 0 0 10px #ccc;
+       -webkit-box-shadow: 0 0 10px #ccc;
+       box-shadow: 0 0 10px #ccc;
+}
