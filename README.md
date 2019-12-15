@@ -9,7 +9,8 @@ If they want to edit any information they simply click on it and hit the edit bu
 
 ![alt text](homepageScreeShot.png)
 ![alt text](screen-shotLogIn.png)
-![at text](mapScreenShot.png)
+![alt text](mapScreenShot.png)
+![alt text](Comment-screenshot.png)
 
 ## Tech Used:
 - HTML5
