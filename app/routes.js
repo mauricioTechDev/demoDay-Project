@@ -156,7 +156,7 @@ module.exports = function(app, passport, db) {
    );
   });
 
-  // SAVING THE FOUND address
+  // SAVING THE FOUND HOMES
   app.post('/saveHouse', (req, res) => {
     // console.log("Home Request")
     console.log(req.body)
@@ -227,7 +227,7 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    // HERE IS TO DELETE A HOME FROM PROFILE PAGE
+    // DELETE A HOME FROM PROFILE PAGE
     app.delete('/deleteHome', (req, res) => {
       // console.log(req.body.title, req.body.commentArea)
       console.log('hello');
@@ -255,6 +255,7 @@ module.exports = function(app, passport, db) {
       if(req.body.email === req.user.local.email) {
         console.log(req.body.title);
         console.log(req.body.commentArea);
+        // query to delete data that meets criteria below
         db.collection('shareYourThoughts').deleteOne({email: req.body.email, title: req.body.title}, (err, result) => {
           console.log('deleted from database');
           if (err) return res.send(500, err)

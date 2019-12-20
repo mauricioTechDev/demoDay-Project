@@ -29,7 +29,7 @@ Array.from(edit).forEach(function(element) {
 // DELETE A USER PROFILE
 Array.from(trash).forEach(function(element) {
   let ul = document.getElementsByClassName("userInfo")
-  // console.log(ul)
+  console.log(ul)
       element.addEventListener('click', function(){
         const name = this.parentNode.childNodes[5].innerText
         console.log(name)
@@ -119,6 +119,8 @@ btn.addEventListener("click", ()=>{
         var longitude = xmlDoc.getElementsByTagName("longitude")[i+1].childNodes[0].nodeValue
         // console.log(longitude)
         // console.log(latitude)
+
+        // Converting LONG and LONG to an Address
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${tileAPIkey}`)
         .then(res => res.json())
         .then(res => {
