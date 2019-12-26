@@ -70,20 +70,14 @@ module.exports = function(app, passport, db) {
           })
         })
     });
+
+
+
 // =============================================================================
-// ENDE OF RENDER APP PAGES
+// Profile routes
 // =============================================================================
 
-
-    // LOGOUT ==============================
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-
-
-// Profile routes ===============================================================
-
+    // POSTING  PROFILE =============================================
     app.post('/userInfoIntake', (req, res) => {
       db.collection('userInfo').save(
         {
@@ -98,7 +92,92 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    // Favorite Homes
+    // UPDATE THE USER PROFILE =====================================
+        app.put("/updateUser", (req, res) => {
+       console.log("check update", req.body);
+       db.collection("userInfo").findOneAndUpdate(
+         { createdBy: req.user._id },
+         {
+           $set: {
+             income: req.body.income,
+             name: req.body.name,
+             // createdBy: req.user._id
+           }
+         },
+         { new: true, upsert: true },
+         (err, result) => {
+           if (err) {
+             console.log("err", err);
+             return res.send(err);
+           }
+           console.log("res", result);
+           res.send(result);
+         }
+       );
+      });
+
+    // SAVING THE FOUND HOMES ======================================
+    app.post('/saveHouse', (req, res) => {
+      // console.log("Home Request")
+      console.log(req.body)
+      console.log("hi world"+req.user.local.email)
+      db.collection('saveHomeList').save(
+        {
+          amount: req.body.amount,
+          street: req.body.street,
+          city: req.body.city,
+          state: req.body.state,
+          zipcode: req.body.zipcode,
+          bathrooms: req.body.bathrooms,
+          bedrooms: req.body.bedrooms,
+          yearBuilt: req.body.yearBuilt,
+          homeWebPage: req.body.homeWebPage,
+          createdBy: req.user._id
+        }, (err, result) => {
+          if (err) return console.log(err)
+          console.log("saved home to the database")
+          res.json({
+           status: 'success',
+           amount: req.body.amount,
+           street: req.body.street,
+           city: req.body.city,
+           state: req.body.state,
+           zipcode: req.body.zipcode,
+           bathrooms: req.body.bathrooms,
+           bedrooms: req.body.bedrooms,
+           yearBuilt: req.body.yearBuilt,
+           homeWebPage: req.body.homeWebPage,
+           createdBy: req.user._id
+        })
+      })
+    })
+
+    // POST USER CURRENT POSITION =================================
+        app.post('/userCordinatesApi', (req, res) => {
+          // console.log('I got a request');
+          // user lat and lon
+          // console.log(req.body);
+          const userLogInLocationData = req.body
+          const timestamp = Date.now();
+          userLogInLocationData.timestamp = timestamp
+          db.collection('userLogInLocations').save(
+            {
+              latitude: req.body.currentUserLat,
+              longitude: req.body.currentUserLon,
+              timestamp: timestamp,
+              createdBy: req.user._id
+            }, (err, result) => {
+              if (err) return console.log(err)
+              console.log("saved to database")
+              res.json({
+               status: 'success',
+               latitude: req.body.currentUserLat,
+               longitude: req.body.currentUserLon
+            })
+          })
+        })
+
+    // ADD TO FAVORITE HOMES =====================================
     app.post('/favoriteHomes', (req, res) => {
       console.log(req.body)
       db.collection('favoriteHomes').save(
@@ -120,8 +199,11 @@ module.exports = function(app, passport, db) {
       })
     })
 
+// =============================================================================
+// Share your thoughts route
+// =============================================================================
 
-// Share Your Thoughts Page
+    // POST TO SHARE YOUR THOUGHTS ================================
     app.post('/shareYourThoughts', (req, res) => {
 
       console.log("hi world"+req.user.local.email)
@@ -138,117 +220,12 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    // Favorite Homes
-    // app.post('/favoriteHomes', (req, res) => {
-    //   console.log(req.body)
-    //   db.collection('favoriteHomes').save(
-    //     {
-    //       amount: req.body.amount,
-    //       street: req.body.street,
-    //       city: req.body.city,
-    //       state: req.body.state,
-    //       zipcode: req.body.zipcode,
-    //       bathrooms: req.body.bathrooms,
-    //       bedrooms: req.body.bedrooms,
-    //       yearBuilt: req.body.yearBuilt,
-    //       homeWebPage: req.body.homeWebPage,
-    //       createdBy: req.user._id
-    //     }, (err, result) => {
-    //     if (err) return console.log(err)
-    //     console.log('saved to database')
-    //     res.redirect('/profile')
-    //   })
-    // })
 
+// =============================================================================
+// Delete routes
+// =============================================================================
 
-// UPDATE THE USER PROFILE
-    app.put("/updateUser", (req, res) => {
-   console.log("check update", req.body);
-   db.collection("userInfo").findOneAndUpdate(
-     { createdBy: req.user._id },
-     {
-       $set: {
-         income: req.body.income,
-         name: req.body.name,
-         // createdBy: req.user._id
-       }
-     },
-     { new: true, upsert: true },
-     (err, result) => {
-       if (err) {
-         console.log("err", err);
-         return res.send(err);
-       }
-       console.log("res", result);
-       res.send(result);
-     }
-   );
-  });
-
-  // SAVING THE FOUND HOMES
-  app.post('/saveHouse', (req, res) => {
-    // console.log("Home Request")
-    console.log(req.body)
-    console.log("hi world"+req.user.local.email)
-    db.collection('saveHomeList').save(
-      {
-        amount: req.body.amount,
-        street: req.body.street,
-        city: req.body.city,
-        state: req.body.state,
-        zipcode: req.body.zipcode,
-        bathrooms: req.body.bathrooms,
-        bedrooms: req.body.bedrooms,
-        yearBuilt: req.body.yearBuilt,
-        homeWebPage: req.body.homeWebPage,
-        createdBy: req.user._id
-      }, (err, result) => {
-        if (err) return console.log(err)
-        console.log("saved home to the database")
-        res.json({
-         status: 'success',
-         amount: req.body.amount,
-         street: req.body.street,
-         city: req.body.city,
-         state: req.body.state,
-         zipcode: req.body.zipcode,
-         bathrooms: req.body.bathrooms,
-         bedrooms: req.body.bedrooms,
-         yearBuilt: req.body.yearBuilt,
-         homeWebPage: req.body.homeWebPage,
-         createdBy: req.user._id
-      })
-    })
-  })
-
-
-
-// post the users current position
-    app.post('/userCordinatesApi', (req, res) => {
-      // console.log('I got a request');
-      // user lat and lon
-      // console.log(req.body);
-      const userLogInLocationData = req.body
-      const timestamp = Date.now();
-      userLogInLocationData.timestamp = timestamp
-      db.collection('userLogInLocations').save(
-        {
-          latitude: req.body.currentUserLat,
-          longitude: req.body.currentUserLon,
-          timestamp: timestamp,
-          createdBy: req.user._id
-        }, (err, result) => {
-          if (err) return console.log(err)
-          console.log("saved to database")
-          res.json({
-           status: 'success',
-           latitude: req.body.currentUserLat,
-           longitude: req.body.currentUserLon
-        })
-      })
-    })
-
-// DELETE THE USER INFO ON THE BOARD
+    // DELETE THE USER INFO ON PROFILE PAGE =========================
     app.delete('/messages', (req, res) => {
       db.collection('userInfo').findOneAndDelete({income: req.body.income, name: req.body.name}, (err, result) => {
         if (err) return res.send(500, err)
@@ -256,7 +233,7 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    // DELETE A HOME FROM PROFILE PAGE
+    // DELETE A HOME FROM PROFILE PAGE =============================
     app.delete('/deleteHome', (req, res) => {
       // console.log(req.body.title, req.body.commentArea)
       console.log('hello');
@@ -278,7 +255,7 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    // DELETE INDIVIDUAL POST FROM PUBLIC BOARD
+    // DELETE INDIVIDUAL POST FROM PUBLIC BOARD ====================
     app.delete('/shareYourThoughts', (req, res) => {
       console.log("hi world"+req.user.local.email)
       if(req.body.email === req.user.local.email) {
@@ -295,7 +272,7 @@ module.exports = function(app, passport, db) {
     });
 
 
-    // DELETE HOMES FROM FAVORITES LIST
+    // DELETE HOMES FROM FAVORITES LIST ===========================
     app.delete('/deleteFavoriteHomes', (req, res) => {
       // console.log(req.body.title, req.body.commentArea)
       console.log('hello');
@@ -318,6 +295,12 @@ module.exports = function(app, passport, db) {
     })
 
 
+
+        // LOGOUT ================================================
+        app.get('/logout', function(req, res) {
+            req.logout();
+            res.redirect('/');
+        });
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
