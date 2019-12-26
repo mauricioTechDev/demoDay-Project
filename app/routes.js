@@ -12,7 +12,11 @@ module.exports = function(app, passport, db) {
         res.render('index.ejs');
     });
 
-    // PROFILE SECTION =========================
+// =============================================================================
+// RENDER APP PAGES
+// =============================================================================
+
+    // GET PROFILE PAGE  =========================
     app.get('/profile', isLoggedIn, function(req, res) {
       let uId = req.user._id
         db.collection('userInfo').find({createdBy: uId}).toArray((err, userInfo) => {
@@ -39,7 +43,7 @@ module.exports = function(app, passport, db) {
 
     });
 
-    // SHARE YOUR THOUGHTS SECTIONS =========================
+    // GET SHARE YOUR THOUGHTS PAGE  =========================
 
     app.get('/shareYourThoughts', isLoggedIn, function(req, res) {
         db.collection('shareYourThoughts').find().toArray((err, result) => {
@@ -53,7 +57,7 @@ module.exports = function(app, passport, db) {
         })
     });
 
-    // FAVORITE HOMES SECTION ================================
+    // GET FAVORITE HOMES PAGE ================================
     app.get('/favoriteHomes', isLoggedIn, function(req, res) {
       let uId = req.user._id
         db.collection('favoriteHomes').find({createdBy: uId}).toArray((err, favoriteHomes) => {
@@ -66,8 +70,9 @@ module.exports = function(app, passport, db) {
           })
         })
     });
-
-
+// =============================================================================
+// ENDE OF RENDER APP PAGES
+// =============================================================================
 
 
     // LOGOUT ==============================
@@ -75,6 +80,7 @@ module.exports = function(app, passport, db) {
         req.logout();
         res.redirect('/');
     });
+
 
 // Profile routes ===============================================================
 
@@ -89,22 +95,6 @@ module.exports = function(app, passport, db) {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
-      })
-    })
-// Share Your Thoughts Page
-    app.post('/shareYourThoughts', (req, res) => {
-
-      console.log("hi world"+req.user.local.email)
-      db.collection('shareYourThoughts').save(
-        {
-          title: req.body.title,
-          commentArea: req.body.commentArea,
-          email: req.user.local.email
-
-        }, (err, result) => {
-        if (err) return console.log(err)
-        console.log('saved to database')
-        res.redirect('/shareYourThoughts')
       })
     })
 
@@ -131,17 +121,56 @@ module.exports = function(app, passport, db) {
     })
 
 
+// Share Your Thoughts Page
+    app.post('/shareYourThoughts', (req, res) => {
+
+      console.log("hi world"+req.user.local.email)
+      db.collection('shareYourThoughts').save(
+        {
+          title: req.body.title,
+          commentArea: req.body.commentArea,
+          email: req.user.local.email
+
+        }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/shareYourThoughts')
+      })
+    })
+
+    // Favorite Homes
+    // app.post('/favoriteHomes', (req, res) => {
+    //   console.log(req.body)
+    //   db.collection('favoriteHomes').save(
+    //     {
+    //       amount: req.body.amount,
+    //       street: req.body.street,
+    //       city: req.body.city,
+    //       state: req.body.state,
+    //       zipcode: req.body.zipcode,
+    //       bathrooms: req.body.bathrooms,
+    //       bedrooms: req.body.bedrooms,
+    //       yearBuilt: req.body.yearBuilt,
+    //       homeWebPage: req.body.homeWebPage,
+    //       createdBy: req.user._id
+    //     }, (err, result) => {
+    //     if (err) return console.log(err)
+    //     console.log('saved to database')
+    //     res.redirect('/profile')
+    //   })
+    // })
+
+
 // UPDATE THE USER PROFILE
     app.put("/updateUser", (req, res) => {
    console.log("check update", req.body);
    db.collection("userInfo").findOneAndUpdate(
-     { createdBy: req.user._icd },
+     { createdBy: req.user._id },
      {
        $set: {
          income: req.body.income,
          name: req.body.name,
-         // interestedInTheCityOf: req.body.interestedInTheCityOf,
-         createdBy: req.user._id
+         // createdBy: req.user._id
        }
      },
      { new: true, upsert: true },
