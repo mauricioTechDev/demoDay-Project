@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectId;
+// const ObjectId = require('mongodb').ObjectId;
 // TO make enviornemntal variables
 
 
@@ -83,7 +83,6 @@ module.exports = function(app, passport, db) {
         {
           income: req.body.income,
           name: req.body.name,
-          // interestedInTheCityOf: req.body.interestedInTheCityOf,
           createdBy: req.user._id,
         }, (err, result) => {
         if (err) return console.log(err)
@@ -155,8 +154,6 @@ module.exports = function(app, passport, db) {
     // POST USER CURRENT POSITION =================================
         app.post('/userCordinatesApi', (req, res) => {
           // console.log('I got a request');
-          // user lat and lon
-          // console.log(req.body);
           const userLogInLocationData = req.body
           const timestamp = Date.now();
           userLogInLocationData.timestamp = timestamp
@@ -267,8 +264,9 @@ module.exports = function(app, passport, db) {
           if (err) return res.send(500, err)
           res.send('Message deleted!')
         });
+      } else {
+        res.render('favoriteHomes.ejs')
       }
-        // res.redirect('/shareYourThoughts')
     });
 
 
@@ -282,12 +280,7 @@ module.exports = function(app, passport, db) {
       db.collection('favoriteHomes').findOneAndDelete({
       street: req.body.street,
       city: req.body.city,
-      // state: req.body.state,
       zipcode: req.body.zipcode
-      // bathrooms: req.body.bathrooms,
-      // bedrooms: req.body.bedrooms,
-      // yearBuilt: req.body.yearBuilt,
-      // homeWebPage: req.body.homeWebPage,
       }, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')

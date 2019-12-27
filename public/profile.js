@@ -8,8 +8,6 @@ Array.from(edit).forEach(function(element) {
     // console.log(edit);
     const name = this.parentNode.childNodes[5].innerText
     const income = this.parentNode.childNodes[9].innerText
-    // const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
-
     console.log(name, income)
     fetch("updateUser", {
       method: "put",
@@ -26,6 +24,7 @@ Array.from(edit).forEach(function(element) {
     });
   });
 });
+
 // DELETE A USER PROFILE
 Array.from(trash).forEach(function(element) {
   let ul = document.getElementsByClassName("userInfo")
@@ -35,8 +34,6 @@ Array.from(trash).forEach(function(element) {
         console.log(name)
         const income = this.parentNode.childNodes[9].innerText
         console.log(income)
-        // const interestedInTheCityOf = this.parentNode.childNodes[13].innerText
-        // console.log(interestedInTheCityOf)
         fetch('messages', {
           method: 'delete',
           headers: {
@@ -45,13 +42,13 @@ Array.from(trash).forEach(function(element) {
           body: JSON.stringify({
             'name': name,
             'income': income,
-            // 'interestedInTheCityOf': interestedInTheCityOf
           })
         }).then(function (response) {
           window.location.reload()
         })
       });
 });
+
 // DELETE A HOME FROM PROFILE
 Array.from(deleteHome).forEach(function(element) {
   let ul = document.getElementsByClassName("homeList")
@@ -64,12 +61,7 @@ Array.from(deleteHome).forEach(function(element) {
         const bathrooms = this.parentNode.childNodes[11].innerText
         const bedrooms = this.parentNode.childNodes[13].innerText
         const yearBuilt = this.parentNode.childNodes[15].innerText
-
         // console.log(street, city, state, zipcode, bathrooms, bedrooms, yearBuilt)
-
-        // console.log(name)
-        // console.log(income)
-        // console.log(collegeDegree)
         fetch('deleteHome', {
           method: 'delete',
           headers: {
@@ -90,6 +82,7 @@ Array.from(deleteHome).forEach(function(element) {
         })
       });
 });
+
 const api_key_zillow = 'X1-ZWz17iidor3ax7_2xcn2'
 let btn = document.getElementById("pushForHomes")
 //  CORS proxy added in to have access to API. CORS Anywhere is a NodeJS proxy which adds CORS headers to the proxied request.
@@ -103,12 +96,11 @@ btn.addEventListener("click", ()=>{
     parser = new DOMParser();
     // Once you have created a parser object, you can parse XML from a string using the parseFromString() method:
     xmlDoc = parser.parseFromString(res,"application/xml")
-    // console.log("zillow")
     console.log(xmlDoc)
     console.log(xmlDoc.getElementsByTagName("zindex")[0].innerHTML)
+    //The price user has in sample profile
     let choicePrice = document.querySelector(".userInfoIncome").innerText
     console.log(choicePrice)
-    // let choiceOfCityUserIsInnterestedIn = document.querySelector(".cityOfChoice").innerText
     var latitude;
     var longitude;
     for (let i=0; i<=25; i++){
@@ -117,9 +109,6 @@ btn.addEventListener("click", ()=>{
         console.log(xmlDoc.getElementsByTagName("name")[i].childNodes[0].nodeValue)
         var latitude = xmlDoc.getElementsByTagName("latitude")[i+1].childNodes[0].nodeValue
         var longitude = xmlDoc.getElementsByTagName("longitude")[i+1].childNodes[0].nodeValue
-        // console.log(longitude)
-        // console.log(latitude)
-
         // Converting LONG and LONG to an Address
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${tileAPIkey}`)
         .then(res => res.json())
@@ -142,11 +131,9 @@ btn.addEventListener("click", ()=>{
                 .then(res => {
                   parser = new DOMParser();
                   xmlDoc = parser.parseFromString(res,"application/xml")
-                  // console.log("house INFO")
                   // console.log("zillow")
                   // console.log(xmlDoc)
                   let homeWebPage = xmlDoc.getElementsByTagName("homedetails")[0].childNodes[0].nodeValue
-                  // console.log(homeWebPage)
                    amount = parseFloat(xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue)
                    street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue
                    zipcode = xmlDoc.getElementsByTagName("zipcode")[0].childNodes[0].nodeValue
@@ -169,31 +156,17 @@ btn.addEventListener("click", ()=>{
                   .then(res => {
                     console.log(res)
                     window.location.reload()
-                    // document.querySelector('.exampleHomeStreet').innerHTML = res.street + " "
-                    // document.querySelector('.exampleHomeCity').innerHTML = res.city + " "
-                    // document.querySelector('.exampleHomeState').innerHTML = res.state + " "
-                    // document.querySelector('.exampleHomeZipcode').innerHTML = res.zipcode
-                    // document.querySelector('.exampleHomeBathrooms').innerHTML = res.bathrooms
-                    // document.querySelector('.exampleHomeBedrooms').innerHTML = res.bedrooms
-                    // document.querySelector('.exampleHomeYearbuilt').innerHTML = res.yearBuilt
-                    // let webSite = res.homeWebPage
-                    // document.querySelector(".clickToGetMoreInfoOnHome").href = `${res.homeWebPage}`;
                   });
                 })
-
         })
       }
     }
-    // .catch(err => {
-    //     console.log(`error ${err}`)
-    //     alert("sorry, there are no results for your search")
-    // });
   })
 })
 
 
 
-// SAVED HOME TO FAVORTIES list
+// SAVED HOME TO FAVORTIES LIST
 let save = document.getElementsByClassName("save");
 Array.from(save).forEach(function(element) {
 element.addEventListener("click", function() {
@@ -247,8 +220,6 @@ element.addEventListener("click", function() {
 
 
 
-
-
 // =============================================
 //                   LEAFLET
 // =============================================
@@ -273,14 +244,14 @@ if ("geolocation" in navigator) {
   .then(res => {
     // console.log(res)
     // MARKS USERS CURRENT LOCATION
-    var sunFlower = L.icon({
+    var pinMarker = L.icon({
       iconUrl: 'images/Map_symbol-pin.svg',
 
       iconSize:     [38, 95], // size of the icon
       iconAnchor:   [10, 90], // point of the icon which will correspond to marker's location
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
-    const marker = L.marker([res.latitude, res.longitude], {icon: sunFlower}).addTo(mymap);
+    const marker = L.marker([res.latitude, res.longitude], {icon: pinMarker}).addTo(mymap);
     const markerPopUp = marker.bindPopup(`This is your current Location!`,{"width": "600"})
   });
 });
@@ -504,25 +475,3 @@ const seaportMarkerPopUp = seaportMarker.bindPopup(`<iframe id="cr-embed-14000US
       const bunkerHillMarkerPopUp = bunkerHillMarker.bindPopup(`<iframe id="cr-embed-14000US25025040600-economics-income-household_distribution" class="census-reporter-embed" src="https://s3.amazonaws.com/embed.censusreporter.org/1.0/iframe.html?geoID=14000US25025040600&chartDataID=economics-income-household_distribution&dataYear=2017&releaseID=ACS_2017_5-year&chartType=histogram&chartHeight=200&chartQualifier=&chartTitle=Household+income&initialSort=&statType=scaled-percentage" frameborder="0" width="100%" height="259" style="margin: 1em; max-width: 720px;"></iframe>
 <script src="https://s3.amazonaws.com/embed.censusreporter.org/1.0/js/embed.chart.make.js"></script>     <iframe id="cr-embed-14000US25025040600-demographics-race" class="census-reporter-embed" src="https://s3.amazonaws.com/embed.censusreporter.org/1.0/iframe.html?geoID=14000US25025040600&chartDataID=demographics-race&dataYear=2017&releaseID=ACS_2017_5-year&chartType=column&chartHeight=200&chartQualifier=Hispanic+includes+respondents+of+any+race.+Other+categories+are+non-Hispanic.&chartTitle=&initialSort=&statType=scaled-percentage" frameborder="0" width="100%" height="509" style="margin: 1em; max-width: 720px;"></iframe>
 <script src="https://s3.amazonaws.com/embed.censusreporter.org/1.0/js/embed.chart.make.js"></script>`)
-
-      // const  westEndMarkerTwo = L.marker([42.361780,-71.069744]).addTo(mymap);
-      // const westEndMarkerPopUpTWO = westEndMarkerTwo.bindPopup()
-
-
-
-
-
-// 42.361780,-71.069744
-
-
-//
-// var popup = L.popup();
-// function onMapClick(e) {
-//   console.log(e.latlng)
-//     popup
-//         .setLatLng(e.latlng)
-//         .setContent("You clicked the map at " + e.latlng.toString())
-//         .openOn(mymap);
-// }
-//
-// mymap.on('click', onMapClick);
