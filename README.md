@@ -7,6 +7,8 @@ If they want to edit any information they simply click on it and hit the edit bu
 
  In the back end I am running an Express framework with Node.js.  For my database I am using mongodb.  The mongo database is receiving DOM input from user logins and saving them to the database.  If you want to try it out follow the step bellow.  There are a-lot of new and exciting features coming soon!! Engaging maps and tons of data for your hearts desire! 🚀
 
+# Brief Walkthrough Video: https://lnkd.in/e9B6qwH
+
 ![alt text](homepageScreeShot.png)
 ![alt text](screen-shotLogIn.png)
 ![alt text](mapScreenShot.png)
