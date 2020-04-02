@@ -1,212 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-     <title>myDomus</title>
+  <title>myDomus</title>
 
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-     <meta name="description" content="">
-     <meta name="keywords" content="">
-     <meta name="author" content="">
-     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-     <link rel="stylesheet" href="bootstrap.min.css">
-     <link rel="stylesheet" href="font-awesome.min.css">
-     <link rel="stylesheet" href="owl.carousel.css">
-     <link rel="stylesheet" href="owl.theme.default.min.css">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="owl.carousel.css">
+  <link rel="stylesheet" href="owl.theme.default.min.css">
 
-     <!-- MAIN CSS -->
-     <link rel="stylesheet" href="templatemo-style.css">
-     <link rel="stylesheet" href="index.css">
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="templatemo-style.css">
+  <link rel="stylesheet" href="index.css">
 
 
 
 </head>
+
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-     <!-- PRE LOADER -->
-     <section class="preloader">
-          <div class="spinner">
+  <!-- PRE LOADER -->
+  <section class="preloader">
+    <div class="spinner">
 
-               <span class="spinner-rotate"></span>
+      <span class="spinner-rotate"></span>
+
+    </div>
+  </section>
+
+
+  <!-- MENU -->
+  <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+    <div class="container">
+
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+        </button>
+
+        <!-- lOGO TEXT HERE -->
+        <a href="#" class="navbar-brand">myDomus</a>
+      </div>
+
+      <!-- MENU LINKS -->
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-nav-first">
+          <li><a href="#top" class="smoothScroll">Home</a></li>
+          <li><a href="#feature" class="smoothScroll">About</a></li>
+          <li><a href="#logIn" class="smoothScroll">Log In</a></li>
+          <li><a href="https://mauricioacosta.dev/" target="_blank" rel="noopener noreferrer" class="smoothScroll">Contact</a></li>
+          <li><a href="#contact" class="smoothScroll">Contact</a></li>
+        </ul>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- HOME -->
+  <section id="headSection">
+    <div class="row">
+
+      <div class="owl-carousel owl-theme home-slider">
+        <div class="item item-first">
+          <div class="caption">
+            <div class="container">
+              <div class="col-md-6 col-sm-12">
+                <h1>myDomus</h1>
+                <h3 class="headerComment">Where housing activest connect and explore.</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FEATURE -->
+  <section id="feature">
+    <div class="container">
+      <div class="row">
+        <h2>myDomus is a social Networking Site. Where Social Activist can expoler census data deomonstrating the coralation between income and race/ethnicity in the city of Boston.</h2>
+        <h2>You can also connect and share with others the work you're doing.</h2>
+
+        <div class="col-md-4 col-sm-4">
+          <div class="feature-thumb">
+            <span>01</span>
+            <h3>Explore the map! 🗻</h3>
+            <p>Our map is full of interesting U.S. census data. Demonstrating the relationship between income and race/ethnicity in Boston.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4">
+          <div class="feature-thumb">
+            <span>02</span>
+            <h3>Make a profile and explore a house. 🏡</h3>
+            <p>Choose from one of the cities in Boston, get an average home price, then explore deeper a certain house.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4">
+          <div class="feature-thumb">
+            <span>03</span>
+            <h3>Share your thoughts! 🤔</h3>
+            <p>Use our discussion board to shair your exprerience and to let your voice be heard.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="logIn">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-offset-1 col-md-4 col-sm-12">
+          <div class="entry-form">
+            <form action="/login" method="post">
+              <h2>Sign In<i class="fab fa-rocketchat"></i></h2>
+
+              <input type="email" name="email" class="form-control" placeholder="email" required="">
+
+              <input type="password" name="password" class="form-control" placeholder="password" required="">
+
+              <button class="submit-btn form-control" id="form-submit">Get started</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-md-offset-1 col-md-4 col-sm-12">
+          <div class="entry-form">
+            <form action="/signup" method="post">
+              <h2>Signup today</h2>
+
+              <input type="email" name="email" class="form-control" placeholder="email" required="">
+
+              <input type="password" name="password" class="form-control" placeholder="password" required="">
+
+              <button class="submit-btn form-control" id="form-submit">Get started</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div id="contact" class="row">
+
+        <div class="col-md-4 col-sm-6">
+          <div class="footer-info">
+            <div class="section-title">
+              <h2>Headquarter</h2>
+            </div>
+            <address>
+              <p>50 Milk Street,<br> Boston, MA 02109</p>
+            </address>
+
+            <ul class="social-icon">
+              <li><a href="https://www.linkedin.com/in/mauriciotechdev/" class="fa fa-linkedin" attr="facebook icon" target="_blank" rel="noopener noreferrer"></a></li>
+              <li><a href="https://twitter.com/mauricioTechDev" target="_blank" class="fa fa-twitter" target="_blank" rel="noopener noreferrer"></a></li>
+            </ul>
 
           </div>
-     </section>
+        </div>
 
-
-     <!-- MENU -->
-     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
-          <div class="container">
-
-               <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                         <span class="icon icon-bar"></span>
-                         <span class="icon icon-bar"></span>
-                         <span class="icon icon-bar"></span>
-                    </button>
-
-                    <!-- lOGO TEXT HERE -->
-                    <a href="#" class="navbar-brand">myDomus</a>
-               </div>
-
-               <!-- MENU LINKS -->
-               <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-nav-first">
-                         <li><a href="#top" class="smoothScroll">Home</a></li>
-                         <li><a href="#feature" class="smoothScroll">About</a></li>
-                         <li><a href="#logIn" class="smoothScroll">Log In</a></li>
-                         <li><a href="https://mauricioacosta.dev/" target="_blank" rel="noopener noreferrer" class="smoothScroll">Contact</a></li>
-                         <li><a href="#contact" class="smoothScroll">Contact</a></li>
-                    </ul>
-
-               </div>
-
+        <div class="col-md-4 col-sm-6">
+          <div class="footer-info">
+            <div class="section-title">
+              <h2>Contact Info</h2>
+            </div>
+            <address>
+              <p><a href="mailto:mauricioacosta.dev@gmail.com">mauricioacosta.dev@gmail.com</a></p>
+            </address>
           </div>
-     </section>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 
-     <!-- HOME -->
-     <section id="headSection">
-          <div class="row">
-
-                    <div class="owl-carousel owl-theme home-slider">
-                         <div class="item item-first">
-                              <div class="caption">
-                                   <div class="container">
-                                        <div class="col-md-6 col-sm-12">
-                                             <h1>myDomus</h1>
-                                             <h3 class="headerComment">Where housing activest connect and explore.</h3>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-
-                    </div>
-          </div>
-     </section>
-
-
-     <!-- FEATURE -->
-     <section id="feature">
-          <div class="container">
-               <div class="row">
-                 <h2>myDomus is a social Networking Site. Where Social Activist can expoler census data deomonstrating the coralation between income and race/ethnicity in the city of Boston.</h2>
-                 <h2>You can also connect and share with others the work you're doing.</h2>
-
-                    <div class="col-md-4 col-sm-4">
-                         <div class="feature-thumb">
-                              <span>01</span>
-                              <h3>Explore the map! 🗻</h3>
-                              <p>Our map is full of interesting U.S. census data. Demonstrating the relationship between income and race/ethnicity in Boston.</p>
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                         <div class="feature-thumb">
-                              <span>02</span>
-                              <h3>Make a profile and explore a house. 🏡</h3>
-                              <p>Choose from one of the cities in Boston, get an average home price, then explore deeper a certain house.</p>
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                         <div class="feature-thumb">
-                              <span>03</span>
-                              <h3>Share your thoughts! 🤔</h3>
-                              <p>Use our discussion board to shair your exprerience and to let your voice be heard.</p>
-                         </div>
-                    </div>
-
-               </div>
-          </div>
-     </section>
-
-
-     <!-- ABOUT -->
-     <section id="logIn">
-          <div class="container">
-               <div class="row">
-
-                    <div class="col-md-offset-1 col-md-4 col-sm-12">
-                         <div class="entry-form">
-                              <form action="/login" method="post">
-                                   <h2>Sign In<i class="fab fa-rocketchat"></i></h2>
-
-                                   <input type="email" name="email" class="form-control" placeholder="email" required="">
-
-                                   <input type="password" name="password" class="form-control" placeholder="password" required="">
-
-                                   <button class="submit-btn form-control" id="form-submit">Get started</button>
-                              </form>
-                         </div>
-                    </div>
-
-                    <div class="col-md-offset-1 col-md-4 col-sm-12">
-                         <div class="entry-form">
-                              <form action="/signup" method="post">
-                                   <h2>Signup today</h2>
-
-                                   <input type="email" name="email" class="form-control" placeholder="email" required="">
-
-                                   <input type="password" name="password" class="form-control" placeholder="password" required="">
-
-                                   <button class="submit-btn form-control" id="form-submit">Get started</button>
-                              </form>
-                         </div>
-                    </div>
-
-               </div>
-          </div>
-     </section>
-
-
-
-
-
-     <!-- FOOTER -->
-     <footer id="footer">
-          <div class="container">
-               <div  id="contact" class="row">
-
-                    <div class="col-md-4 col-sm-6">
-                         <div class="footer-info">
-                              <div class="section-title">
-                                   <h2>Headquarter</h2>
-                              </div>
-                              <address>
-                                   <p>50 Milk Street,<br> Boston, MA 02109</p>
-                              </address>
-
-                              <ul class="social-icon">
-                                   <li><a href="https://www.linkedin.com/in/mauriciotechdev/" class="fa fa-linkedin" attr="facebook icon" target="_blank" rel="noopener noreferrer"></a></li>
-                                   <li><a href="https://twitter.com/mauricioTechDev" target="_blank" class="fa fa-twitter" target="_blank" rel="noopener noreferrer"></a></li>
-                              </ul>
-
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6">
-                         <div class="footer-info">
-                              <div class="section-title">
-                                   <h2>Contact Info</h2>
-                              </div>
-                              <address>
-                                   <p><a href="mailto:mauricioacosta.dev@gmail.com">mauricioacosta.dev@gmail.com</a></p>
-                              </address>
-                         </div>
-                    </div>
-               </div>
-          </div>
-     </footer>
-
-
-     <!-- SCRIPTS -->
-     <script src="js/jquery.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-     <script src="js/owl.carousel.min.js"></script>
-     <script src="js/smoothscroll.js"></script>
-     <script src="js/custom.js"></script>
+  <!-- SCRIPTS -->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/smoothscroll.js"></script>
+  <script src="js/custom.js"></script>
 
 </body>
+
 </html>

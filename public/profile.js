@@ -28,13 +28,13 @@ Array.from(edit).forEach(function(element) {
 // DELETE A USER PROFILE
 Array.from(trash).forEach(function(element) {
   let ul = document.getElementsByClassName("userInfo")
-  console.log(ul)
+  // console.log(ul)
       element.addEventListener('click', function(){
         const name = this.parentNode.childNodes[5].innerText
         console.log(name)
         const income = this.parentNode.childNodes[9].innerText
         console.log(income)
-        fetch('messages', {
+        fetch('deleteFamily', {
           method: 'delete',
           headers: {
             'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ Array.from(trash).forEach(function(element) {
 // DELETE A HOME FROM PROFILE
 Array.from(deleteHome).forEach(function(element) {
   let ul = document.getElementsByClassName("homeList")
-  console.log(ul)
+  // console.log(ul)
       element.addEventListener('click', function(){
         const street = this.parentNode.childNodes[3].innerText
         const city = this.parentNode.childNodes[5].innerText
@@ -99,6 +99,7 @@ btn.addEventListener("click", ()=>{
     console.log(xmlDoc)
     console.log(xmlDoc.getElementsByTagName("zindex")[0].innerHTML)
     //The price user has in sample profile
+    window.location.reload(true)
     let choicePrice = document.querySelector(".userInfoIncome").innerText
     console.log(choicePrice)
     var latitude;
@@ -132,7 +133,7 @@ btn.addEventListener("click", ()=>{
                   parser = new DOMParser();
                   xmlDoc = parser.parseFromString(res,"application/xml")
                   // console.log("zillow")
-                  // console.log(xmlDoc)
+                  console.log(xmlDoc)
                   let homeWebPage = xmlDoc.getElementsByTagName("homedetails")[0].childNodes[0].nodeValue
                    amount = parseFloat(xmlDoc.getElementsByTagName("amount")[0].childNodes[0].nodeValue)
                    street = xmlDoc.getElementsByTagName("street")[0].childNodes[0].nodeValue

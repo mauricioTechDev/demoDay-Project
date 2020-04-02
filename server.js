@@ -26,6 +26,9 @@ mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
   db = database
   require('./app/routes.js')(app, passport, db);
+  require('./app/family-routes.js')(app, passport, db);
+  require('./app/home-routes.js')(app, passport, db);
+  require('./app/share-your-thoughts.js')(app, passport, db);
 }); // connect to our database
 
 //app.listen(port, () => {
