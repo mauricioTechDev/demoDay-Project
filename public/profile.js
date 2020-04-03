@@ -31,9 +31,9 @@ Array.from(trash).forEach(function(element) {
   // console.log(ul)
       element.addEventListener('click', function(){
         const name = this.parentNode.childNodes[5].innerText
-        console.log(name)
+        // console.log(name)
         const income = this.parentNode.childNodes[9].innerText
-        console.log(income)
+        // console.log(income)
         fetch('deleteFamily', {
           method: 'delete',
           headers: {

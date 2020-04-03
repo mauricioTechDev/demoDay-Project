@@ -25,22 +25,18 @@ var db
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
   db = database
+  require('./app/routes/indexRoute.js')(app, passport, db);
   require('./app/routes.js')(app, passport, db);
-  require('./app/family-routes.js')(app, passport, db);
-  require('./app/home-routes.js')(app, passport, db);
-  require('./app/share-your-thoughts.js')(app, passport, db);
+  require('./app/routes/loginRoutes.js')(app, passport, db);
+  require('./app/routes/signUpRoutes.js')(app, passport, db);
+  require('./app/routes/logoutRoutes.js')(app, passport, db);
+  require('./app/routes/api/familyRoutes.js')(app, passport, db);
+  require('./app/routes/api/homeRoutes.js')(app, passport, db);
+  require('./app/routes/api/shareThoughtRoutes.js')(app, passport, db);
+  require('./app/routes/api/favoriteHomeRoutes.js')(app, passport, db);
+
 }); // connect to our database
 
-//app.listen(port, () => {
-    // MongoClient.connect(configDB.url, { useNewUrlParser: true }, (error, client) => {
-    //     if(error) {
-    //         throw error;
-    //     }
-    //     db = client.db(configDB.dbName);
-    //     console.log("Connected to `" + configDB.dbName + "`!");
-    //     require('./app/routes.js')(app, passport, db);
-    // });
-//});
 
 require('./config/passport')(passport); // pass passport for configuration
 
