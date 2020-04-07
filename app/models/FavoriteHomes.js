@@ -51,7 +51,7 @@ const FavoriteHomesSchema = new Schema({
 
 //Name of my Model is Family.  In the quotes is the name of the collection
 //and the collection will be modeled after my FamilySchema
-const FavoriteHomes = mongoose.model('favortieHome', FavoriteHomesSchema);
+const FavoriteHomes = mongoose.model('favoriteHomes', FavoriteHomesSchema);
 
 
 // Here I am exporting the Model to acsess in other files
